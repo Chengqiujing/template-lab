@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chengqj.springbootbasic.mybatis.mapper.UsersMapper">
+    <insert id="insertUser" parameterType="users">
+        insert into USERS (id,name,age) values (users_id.nextval,#{name},#{age})
+
+    </insert>
+    <select id="selectUsersAll" resultType="users">
+        select id,name,age from users order by id desc
+    </select>
+    <select id="selectUserById" parameterType="string" resultType="users">
+        select id,name,age from users where id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="users">
+        update users set name=#{name},age=#{age} where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="string">
+        delete from users where id = #{id}
+    </delete>
+</mapper>
