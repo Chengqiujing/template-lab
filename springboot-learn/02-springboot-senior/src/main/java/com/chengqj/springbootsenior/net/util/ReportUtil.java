@@ -4,12 +4,7 @@ import com.chengqj.springbootsenior.net.encode.AESUtil;
 import com.chengqj.springbootsenior.net.encode.CRC16Util;
 import com.chengqj.springbootsenior.net.encode.MD5Util;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author chengqiujing
@@ -75,6 +70,7 @@ public class ReportUtil {
     public static byte[] packg(String report,Integer sequence) throws Exception {
         System.out.println("AES加密后：" + AESUtil.encrypt(report));
         byte[] bytes = AESUtil.encryptToByteArray(report); // 加密后指令内容
+        //reverseArray(bytes);
         System.out.println("加密后数组长度："+bytes.length);
         int length = bytes.length + 4 + 4 + 4 + 4 + 2;
         int dataLenght = bytes.length + 4;
@@ -90,17 +86,17 @@ public class ReportUtil {
         packBytes[packBytes.length - 2] = 0x55;
         packBytes[packBytes.length - 1] = (byte) 0xAA;
         // 有效数据总长度
-        packBytes[4] = (byte) (dataLenght >>> 24);
-        packBytes[5] = (byte) (dataLenght >>> 16);
-        packBytes[6] = (byte) (dataLenght >>> 8);
-        packBytes[7] = (byte) dataLenght;
+        packBytes[7] = (byte) (dataLenght >>> 24);
+        packBytes[6] = (byte) (dataLenght >>> 16);
+        packBytes[5] = (byte) (dataLenght >>> 8);
+        packBytes[4] = (byte) dataLenght;
 
         // 指令序号 四个空字节 8,9,10,11
         if(sequence != null){
-            packBytes[8] = (byte) (sequence >>> 24);
-            packBytes[9] = (byte) (sequence >>> 16);
-            packBytes[10] = (byte) (sequence >>> 8);
-            packBytes[11] = (byte) sequence.intValue();
+            packBytes[11] = (byte) (sequence >>> 24);
+            packBytes[10] = (byte) (sequence >>> 16);
+            packBytes[9] = (byte) (sequence >>> 8);
+            packBytes[8] = (byte) sequence.intValue();
         }
         // 有效数据
         System.arraycopy(bytes, 0, packBytes, 12, bytes.length);
@@ -110,8 +106,8 @@ public class ReportUtil {
         int crc = CRC16Util.getCRC(Arrays.copyOfRange(packBytes,8,dataLenght+8));
         //int crc = 0xB563;
         System.out.println("CRC校验：" + Integer.toHexString(crc));
-        packBytes[packBytes.length - 6] = (byte) (crc >>> 8);
-        packBytes[packBytes.length - 5] = (byte) crc;
+        packBytes[packBytes.length - 5] = (byte) (crc >>> 8);
+        packBytes[packBytes.length - 6] = (byte) crc;
 
         System.out.println("最终发送包："+byteToHex(packBytes));
         return packBytes;

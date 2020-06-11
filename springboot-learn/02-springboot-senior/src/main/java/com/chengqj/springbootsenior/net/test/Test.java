@@ -1,7 +1,5 @@
 package com.chengqj.springbootsenior.net.test;
 
-import java.util.Arrays;
-
 /**
  * @Author chengqiujing
  * @Date 2020/6/10 10:47
@@ -32,7 +30,7 @@ public class Test {
 //        int m = (a1 << 24) + (a2 << 16) + (a3 << 8)+a4;
 //        System.out.println(m);
 
-        System.out.println(0xe4);
+        System.out.println(0x000000e4);
 
 
 
