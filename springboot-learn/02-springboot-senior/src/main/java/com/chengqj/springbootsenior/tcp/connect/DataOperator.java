@@ -1,15 +1,18 @@
 package com.chengqj.springbootsenior.tcp.connect;
 
-import com.chengqj.springbootsenior.exceptionhandler.GlobalExceptionHandler;
-import com.chengqj.springbootsenior.tcp.Report;
+import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 import com.chengqj.springbootsenior.tcp.encrypt.Encryptor;
+import com.chengqj.springbootsenior.tcp.report.Report;
+import com.chengqj.springbootsenior.tcp.report.ReportFactory;
+import com.chengqj.springbootsenior.tcp.report.Response;
 import com.chengqj.springbootsenior.tcp.util.CRC16Util;
+import com.chengqj.springbootsenior.tcp.util.LogUtil;
 import com.chengqj.springbootsenior.tcp.util.ReportUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author chengqiujing
@@ -18,7 +21,13 @@ import java.util.Arrays;
  */
 public class DataOperator implements Operator{
 
-    private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static volatile boolean isStop = false;
+
+    private static volatile int period = 5; // 分钟
+
+    private static final int RETRY = 3;
+
+    private int count = 1;
 
     private Connector connector;
 
@@ -29,20 +38,39 @@ public class DataOperator implements Operator{
         this.encryptor = encryptor;
     }
 
+    /**
+     * 发送报文
+     * @param report
+     */
     public void send(String report){
         try {
             synchronized (this) {
+                LogUtil.LOGGER.info(">>>>>>>>>>发送报文<<<<<<<<<<<\n"+report);
                 byte[] packg = packg(report, null);
                 connector.send(packg);
             }
         } catch (Exception e) {
-            logger.error("发送失败",e);
+
+            LogUtil.LOGGER.error(">>>>>>>>>>报文发送失败,重试第"+count+"次<<<<<<<<<<<",e);
+            if(count <= RETRY){
+                count++;
+                send(report);
+            }
+            count = 1;
         }
     }
 
-    public Report receive() throws IOException {
+    /**
+     * 收取报文
+     * @return
+     * @throws IOException
+     */
+    public Response receive() throws IOException {
+        LogUtil.LOGGER.info(">>>>>>>>>>等待接收报文<<<<<<<<<<<");
         byte[] bytes = new byte[4];
-        while(true){
+        byte[] crc = new byte[2];
+        int count = 0; // 防止回写数据为无效数据，倒置CPU升高
+        while(!isEnd(bytes)){
             int receive = connector.receive(bytes);
             if(isStart(bytes)){
                 connector.receive(bytes);
@@ -51,14 +79,112 @@ public class DataOperator implements Operator{
                 byte[] data = new byte[dataLength-4];
                 connector.receive(data);
                 String decrypt = encryptor.decrypt(data);
-                Report report = new Report();
-                report.setText(decrypt);
-                return report;
+                Response response = new Response();
+                response.setText(decrypt);
+                connector.receive(crc);
+                connector.receive(bytes);
+
+                LogUtil.LOGGER.info(">>>>>>>>>>接收报文<<<<<<<<<<<\n"+response.getText());
+                return response;
+            }
+            count++;
+            if(count > 1000){ // 收到无效数据超过 4*1000字节后（空跑1000次），转入低频率接收
+                try {
+                    TimeUnit.MILLISECONDS.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(count > 1060){ // 以500ms一次，空跑30s后返回null
+                    LogUtil.LOGGER.error("X》X》X》接收无效数据超过30s，接收停止，返回null《X《X《X");
+                    return null;
+                }
             }
         }
+        return null;
     }
 
     /**
+     * 销毁
+     */
+    public void destroyDataOperator(){
+        LogUtil.LOGGER.info(">>>>开始销毁>>>>>>>>>");
+        if (connector != null) {
+            try {
+                connector.close();
+            } catch (IOException e) {
+                LogUtil.LOGGER.error("销毁失败，请重启",e);
+            }
+        }
+        isStop = true;
+        LogUtil.LOGGER.info(">>>>销毁完成>>>>>>>>>");
+    }
+
+    // 心跳
+    public void heartBeat( ReportConfig reportConfig) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    if(isStop){
+                        LogUtil.LOGGER.info("心跳线程停止...咚~咚...咚~.........");
+                        return;
+                    }
+
+                    Report heartBeatReport = ReportFactory.getHeartBeatReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
+                    send(heartBeatReport.getReport());
+
+                    try {
+                        TimeUnit.SECONDS.sleep(period*3);
+                    } catch (InterruptedException e) {
+                        LogUtil.LOGGER.error("心跳线程睡眠被打断",e);
+                    }
+                }
+            }
+        }, "Heart Beat");
+        thread.start();
+    }
+
+    // 身份验证
+    public boolean validate(ReportConfig reportConfig) {
+        try {
+            LogUtil.LOGGER.info("》》》身份验证开始《《《");
+            // 采集器编号，建筑编号是否为空
+            if (reportConfig.getBuildingNo() == null || reportConfig.getCollectorNo() == null) {
+                LogUtil.LOGGER.error("------>报文配置项为空（" + ReportConfig.class.getName() + "），身份无法验证<------");
+                return false;
+            }
+            // 身份验证：获取sequence
+            Report idValidateRequestReport = ReportFactory.getIdValidateRequestReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
+            send(idValidateRequestReport.getReport());
+            Response receive = receive();
+            String sequence = receive.getContentByPath("sequence");
+            if (Objects.isNull(sequence)) {
+                LogUtil.LOGGER.error("身份验证异常：返回sequence为空");
+                return false;
+            }
+            LogUtil.LOGGER.info("身份验证：sequence=" + sequence);
+
+            // MD5再次验证
+            Report idValidateMD5Report = ReportFactory
+                    .getIdValidateMD5Report(reportConfig.getBuildingNo(), reportConfig.getCollectorNo(), sequence);
+            send(idValidateMD5Report.getReport());
+            Response md5Receive = receive();
+            String result = md5Receive.getContentByPath("result");
+            if ("pass".equals(result)) {
+                LogUtil.LOGGER.error("》》》身份验证通过《《《");
+                return true;
+            } else {
+                LogUtil.LOGGER.error("》》》身份验证失败：未通过《《《");
+            }
+        } catch (IOException e) {
+            LogUtil.LOGGER.error("身份验证异常：流错误", e);
+        }
+        return false;
+    }
+
+
+    /**
+     * 打包
      * 包头 4字节 0x68 0x68 0x16 0x16
      * 有效数据总长度 4字节
      * 有效数据 n字节=m字节+4字节 4字节指令序号 m字节

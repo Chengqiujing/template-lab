@@ -1,7 +1,12 @@
 package com.chengqj.springbootsenior.tcp.report;
 
+import com.chengqj.springbootsenior.tcp.entity.Function;
+import com.chengqj.springbootsenior.tcp.entity.Meter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author chengqiujing
@@ -27,9 +32,14 @@ public class DataReport extends AbstractReport {
     private boolean parse;
 
     /**
-     * 数据采集时间
+     * 数据采集时间 yyyyMMddHHmmss
      */
-    private String time;
+    private LocalDateTime time;
+
+    /**
+     * 仪表数据
+     */
+    List<Meter> meters;
 
 
     @Override
@@ -59,18 +69,19 @@ public class DataReport extends AbstractReport {
           .append("</parse>\n")
           .append("    <time>")
           .append(time)
-          .append("</time>\n")
-          .append("    <meter id=\"32\" name=\"00000000000001\" conn=\"conn\">\n")
-          .append("      <function id=\"0001\" coding=\"01B00\" error=\"0\" sample_time=\"20181222143418\">9600.00</function>\n")
-          .append("    </meter>\n")
-          .append("    <meter id=\"33\" name=\"00000000000001\" conn=\"conn\">\n")
-          .append("      <function id=\"0001\" coding=\"01B00\" error=\"0\" sample_time=\"20181222143418\">20.00</function>\n")
-          .append("    </meter>\n")
-          .append("    <meter id=\"34\" name=\"00000000000001\" conn=\"conn\">\n")
-          .append("      <function id=\"0001\" coding=\"01B00\" error=\"0\" sample_time=\"20181222143418\">1.00</function>\n")
-          .append("    </meter>\n")
-          .append("  </data>");
+          .append("</time>\n");
 
+        for (Meter meter : meters) {
+            sb.append("    <meter id=\"").append(meter.getMeterId()).append("\" name=\"").append(meter.getMeterName()).append("\" conn=\"conn\">\n");
+            List<Function> functions = meter.getFunctions();
+            for (Function function : functions) {
+                sb.append("      <function id=\"").append(function.getFunctionId()).append("\" coding=\"").append(function.getFunctionCoding())
+                        .append("\" error=\"").append(function.getFunctionError()).append("\" sample_time=\"").append(function.getFunctionSampleTime())
+                        .append("\">").append(function.getFunctionData()).append("</function>\n");
+            }
+            sb.append("    </meter>\n");
+        }
+        sb.append("  </data>");
         return sb.toString();
     }
 }

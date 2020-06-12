@@ -1,37 +1,26 @@
 package com.chengqj.springbootsenior.tcp.connect;
 
 import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
+import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 import com.chengqj.springbootsenior.tcp.encrypt.AESEncryptor;
+
+import java.io.IOException;
 
 public class DataOperatorBuilder {
 
-    public static DataOperator getDataOperator(ConnectConfig config){
-        Connector connector = ConnectorFactory.getConnector(config, ConnectType.TCP);
-        DataOperator dataOperator = new DataOperator(connector,new AESEncryptor());
+    public static DataOperator getDataOperator(ConnectConfig connectConfig, ReportConfig reportConfig) throws IOException {
+        Connector connector = ConnectorFactory.getConnector(connectConfig, ConnectType.TCP);
+        DataOperator dataOperator = new DataOperator(connector, new AESEncryptor());
 
         // 身份验证
-
-        // 心跳启动
+        boolean validate = dataOperator.validate(reportConfig);
+        if(validate){
+            // 心跳启动
+            dataOperator.heartBeat(reportConfig);
+        }
 
         return dataOperator;
     }
 
-    // 心跳
-    private static void heartBeat(){
-
-    }
-
-    // 身份验证
-    private static boolean validate(DataOperator dataOperator){
-        // 获取报文
-
-        // 请求验证
-
-        // 返回报文
-
-        // 再次验证
-
-        return false;
-    }
 
 }

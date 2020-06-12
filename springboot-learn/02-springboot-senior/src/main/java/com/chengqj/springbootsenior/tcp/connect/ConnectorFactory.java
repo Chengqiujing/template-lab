@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author chengqiujing
@@ -18,7 +19,7 @@ public class ConnectorFactory {
 
     private final static int RETRY_COUNT = 3;
 
-    public static Connector getConnector(ConnectConfig config,ConnectType connectType){
+    public static Connector getConnector(ConnectConfig config,ConnectType connectType) throws IOException {
         if(connectType.equals(ConnectType.TCP)){
             TCPConnectiorImpl tcpConnectior = new TCPConnectiorImpl();
             try {
@@ -31,11 +32,15 @@ public class ConnectorFactory {
                     try {
                         tcpConnectior.close();
                         tcpConnectior.init(config);
+                        TimeUnit.SECONDS.sleep(10);
                     } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
                 }
                 logger.info("无法与建立连接--"+config.toString());
+                throw e;
             }
 
         }
