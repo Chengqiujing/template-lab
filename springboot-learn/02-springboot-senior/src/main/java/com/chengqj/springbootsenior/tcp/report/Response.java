@@ -1,4 +1,4 @@
-package com.chengqj.springbootsenior.tcp;
+package com.chengqj.springbootsenior.tcp.report;
 
 import com.chengqj.springbootsenior.tcp.util.XmlUtil;
 import lombok.Data;
@@ -10,7 +10,7 @@ import org.dom4j.DocumentException;
  * @Desc
  */
 @Data
-public class Report {
+public class Response {
 
     private String text;
 

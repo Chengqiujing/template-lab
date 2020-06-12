@@ -7,9 +7,6 @@ package com.chengqj.springbootsenior.tcp.connect;
  */
 public class BusinessManager {
 
-    // 身份验证
-
-
     // 发送数据
 
 

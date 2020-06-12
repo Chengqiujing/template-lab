@@ -16,5 +16,22 @@ public class DataOperatorBuilder {
         return dataOperator;
     }
 
+    // 心跳
+    private static void heartBeat(){
+
+    }
+
+    // 身份验证
+    private static boolean validate(DataOperator dataOperator){
+        // 获取报文
+
+        // 请求验证
+
+        // 返回报文
+
+        // 再次验证
+
+        return false;
+    }
 
 }

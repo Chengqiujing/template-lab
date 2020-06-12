@@ -8,68 +8,11 @@ package com.chengqj.springbootsenior.tcp.util;
  */
 public class ReportUtil {
 
-    private static String getReport(String buildingNo, String collectorNo, String type, String bzReport) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-                .append("<root>")
-                .append("<common>")
-                .append("<building_id>")
-                .append(buildingNo)
-                .append("</building_id>")
-                .append("<gateway_id>")
-                .append(collectorNo)
-                .append("</gateway_id>")
-                .append("<type>")
-                .append(type)
-                .append("</type>")
-                .append("</common>")
-                .append(bzReport)
-                .append("</root>");
-        return sb.toString();
-    }
-
-
     /**
-     * 身份验证 request
-     * @param buildingNo
-     * @param collectorNo
+     * 字节数组转十六进制
+     * @param data
      * @return
      */
-    public static String getValidateRequest(String buildingNo, String collectorNo) {
-//        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-//                "<root>\n" +
-//                "    <common>\n" +
-//                "      <building_id>123</building_id>\n" +
-//                "      <gateway_id>123</gateway_id>\n" +
-//                "      <type>request</type>\n" +
-//                "    </common>\n" +
-//                "    <id_validate operation=\"request\"/>\n" +
-//                "</root>";
-        String bzReport = "<id_validate operation=\"request\"/>";
-        String type = "request";
-        return getReport(buildingNo, collectorNo, type, bzReport);
-    }
-
-    /**
-     * 身份验证 md5
-     * @param buildingNo
-     * @param collectorNo
-     * @param sequence
-     * @return
-     */
-    public static String getValidateMD5(String buildingNo, String collectorNo, String sequence) {
-        String bzReport = "<id_validate operation=\"md5\"><md5>" + MD5Util.md5Encode(sequence, null) + "</md5></id_validate>"; // md5编码
-        String type = "md5";
-        return getReport(buildingNo, collectorNo, type, bzReport);
-    }
-
-
-
-
-
-
-
-
     public static String byteToHex(byte[] data) {
         StringBuilder sb = new StringBuilder();
         for (byte b : data) {
@@ -78,6 +21,11 @@ public class ReportUtil {
         return sb.toString();
     }
 
+    /**
+     * 字节数组转int
+     * @param bytes
+     * @return
+     */
     public static int byteArrayToInt(byte[] bytes) {
         reverseArray(bytes);
         int value = 0;
