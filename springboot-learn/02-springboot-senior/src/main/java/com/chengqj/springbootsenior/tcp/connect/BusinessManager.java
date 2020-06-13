@@ -3,9 +3,6 @@ package com.chengqj.springbootsenior.tcp.connect;
 import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
 import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @Author chengqj
  * @Date 2020/6/11 0011 23:31
@@ -21,17 +18,17 @@ public class BusinessManager {
         reportConfig.setBuildingNo("GW123");
         reportConfig.setCollectorNo("GW001");
 
-        try {
-            DataOperator dataOperator = DataOperatorBuilder.getDataOperator(connectConfig, reportConfig);
-        } catch (IOException e) {
-            //TODO 网络断开-重试
+        DataOperator dataOperator = DataOperatorBuilder.getDataOperator(connectConfig, reportConfig);
+
+        while(true){
+
         }
 
-        try {
-            TimeUnit.MINUTES.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.MINUTES.sleep(5);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
     // 发送数据

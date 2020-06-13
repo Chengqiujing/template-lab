@@ -15,11 +15,11 @@ public class Response {
     private String text;
 
 
-    public String getContentByPath(String elementName){
+    public String getContentByPath(String xpath){
         try {
-            return XmlUtil.getTextByElement(text,elementName);
+            return XmlUtil.getTextByElement(text,xpath);
         } catch (DocumentException e) {
-            throw new RuntimeException("无法取到该元素："+elementName);
+            throw new RuntimeException("无法取到该元素："+xpath);
         }
     }
 }

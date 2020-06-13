@@ -1,9 +1,6 @@
 package com.chengqj.springbootsenior.tcp.util;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
 import java.util.Objects;
@@ -17,17 +14,21 @@ public class XmlUtil {
 
     private static final SAXReader reader = new SAXReader();
 
-    public static synchronized String getTextByElement(String xml,String elementName) throws DocumentException {
+    public static synchronized String getTextByElement(String xml,String xpath) throws DocumentException {
         if(Objects.isNull(xml)){
             throw new RuntimeException("要解析的xml文本为空");
         }
-        if (Objects.isNull(elementName)) {
+        if (Objects.isNull(xpath)) {
             throw new RuntimeException("取text的elementName为空");
         }
         Document document = DocumentHelper.parseText(xml);
         Element root = document.getRootElement();
-        String textTrim = root.elementTextTrim(elementName);
-        return textTrim;
+        Node node = root.selectSingleNode(xpath);
+        if(node != null){
+            return node.getText();
+        }else {
+            return null;
+        }
     }
 
 }

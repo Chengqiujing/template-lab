@@ -4,11 +4,9 @@ import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
 import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 import com.chengqj.springbootsenior.tcp.encrypt.AESEncryptor;
 
-import java.io.IOException;
-
 public class DataOperatorBuilder {
 
-    public static DataOperator getDataOperator(ConnectConfig connectConfig, ReportConfig reportConfig) throws IOException {
+    public static DataOperator getDataOperator(ConnectConfig connectConfig, ReportConfig reportConfig) {
         Connector connector = ConnectorFactory.getConnector(connectConfig, ConnectType.TCP);
         DataOperator dataOperator = new DataOperator(connector, new AESEncryptor());
 

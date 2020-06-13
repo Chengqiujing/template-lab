@@ -70,8 +70,9 @@ public class DataOperator implements Operator{
         byte[] bytes = new byte[4];
         byte[] crc = new byte[2];
         int count = 0; // 防止回写数据为无效数据，倒置CPU升高
+        int receive;
         while(!isEnd(bytes)){
-            int receive = connector.receive(bytes);
+            receive = connector.receive(bytes);
             if(isStart(bytes)){
                 connector.receive(bytes);
                 int dataLength = ReportUtil.byteArrayToInt(bytes); // 获取有效数据长度
@@ -132,6 +133,13 @@ public class DataOperator implements Operator{
 
                     Report heartBeatReport = ReportFactory.getHeartBeatReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
                     send(heartBeatReport.getReport());
+                    try {
+                        Response receive = receive();
+                        LogUtil.LOGGER.info("心跳延时报文\n"+receive.getText());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        LogUtil.LOGGER.warn("心跳延时信息接收失败",e);
+                    }
 
                     try {
                         TimeUnit.SECONDS.sleep(period*3);
@@ -157,7 +165,7 @@ public class DataOperator implements Operator{
             Report idValidateRequestReport = ReportFactory.getIdValidateRequestReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
             send(idValidateRequestReport.getReport());
             Response receive = receive();
-            String sequence = receive.getContentByPath("sequence");
+            String sequence = receive.getContentByPath("/root/id_validate/sequence");
             if (Objects.isNull(sequence)) {
                 LogUtil.LOGGER.error("身份验证异常：返回sequence为空");
                 return false;
@@ -175,6 +183,7 @@ public class DataOperator implements Operator{
                 return true;
             } else {
                 LogUtil.LOGGER.error("》》》身份验证失败：未通过《《《");
+                return false;
             }
         } catch (IOException e) {
             LogUtil.LOGGER.error("身份验证异常：流错误", e);
@@ -192,7 +201,7 @@ public class DataOperator implements Operator{
      * 包尾 4字节 0x55 0xAA 0x55 0xAA
      */
     private byte[] packg(String report,Integer sequence) throws Exception {
-        System.out.println("AES加密后：" + encryptor.encrypt(report));
+        System.out.println("AES加密后：" + ReportUtil.byteToHex(encryptor.encrypt(report)));
         byte[] bytes = encryptor.encrypt(report); // 加密后指令内容
 
         System.out.println("加密后数组长度："+bytes.length);

@@ -1,7 +1,6 @@
 package com.chengqj.springbootsenior.net.test;
 
-import com.chengqj.springbootsenior.net.util.XmlUtil;
-import org.dom4j.DocumentException;
+import org.dom4j.*;
 
 /**
  * @Author chengqiujing
@@ -46,7 +45,12 @@ public class Test {
                 "</id_validate>\n" +
                 "</root>";
         try {
-            String sequence = XmlUtil.getTextByElement(xml, "root");
+
+            Document document = DocumentHelper.parseText(xml);
+            Element root = document.getRootElement();
+            Node node = root.selectSingleNode("/root/id_validate/sequence");
+            System.out.println(node.getText());
+//            String sequence = XmlUtil.getTextByElement(xml, "/sequence");
         } catch (DocumentException e) {
             e.printStackTrace();
         }

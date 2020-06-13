@@ -19,7 +19,7 @@ public class ConnectorFactory {
 
     private final static int RETRY_COUNT = 3;
 
-    public static Connector getConnector(ConnectConfig config,ConnectType connectType) throws IOException {
+    public static Connector getConnector(ConnectConfig config,ConnectType connectType) {
         if(connectType.equals(ConnectType.TCP)){
             TCPConnectiorImpl tcpConnectior = new TCPConnectiorImpl();
             try {
@@ -40,7 +40,6 @@ public class ConnectorFactory {
                     }
                 }
                 logger.info("无法与建立连接--"+config.toString());
-                throw e;
             }
 
         }
