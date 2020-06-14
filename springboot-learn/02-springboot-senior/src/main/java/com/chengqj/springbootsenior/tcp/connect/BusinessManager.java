@@ -21,6 +21,11 @@ public class BusinessManager {
         DataOperator dataOperator = DataOperatorBuilder.getDataOperator(connectConfig, reportConfig);
 
         while(true){
+            // 定时发送
+
+            // 断网/错误重试
+
+            //
 
         }
 
@@ -31,8 +36,14 @@ public class BusinessManager {
 //        }
 
     }
-    // 发送数据
 
 
-    // 历史数据查询
+    /**
+     *
+     * 缓存发
+     *
+     * 缓存收
+     *
+     *
+     */
 }

@@ -1,6 +1,6 @@
 package com.chengqj.springbootsenior.tcp.connect;
 
-import com.chengqj.springbootsenior.tcp.report.Response;
+import com.chengqj.springbootsenior.tcp.response.Response;
 
 import java.io.IOException;
 

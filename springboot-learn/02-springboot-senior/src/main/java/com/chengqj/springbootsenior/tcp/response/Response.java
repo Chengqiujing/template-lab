@@ -1,4 +1,4 @@
-package com.chengqj.springbootsenior.tcp.report;
+package com.chengqj.springbootsenior.tcp.response;
 
 import com.chengqj.springbootsenior.tcp.util.XmlUtil;
 import lombok.Data;

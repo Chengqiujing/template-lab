@@ -4,7 +4,7 @@ import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 import com.chengqj.springbootsenior.tcp.encrypt.Encryptor;
 import com.chengqj.springbootsenior.tcp.report.Report;
 import com.chengqj.springbootsenior.tcp.report.ReportFactory;
-import com.chengqj.springbootsenior.tcp.report.Response;
+import com.chengqj.springbootsenior.tcp.response.Response;
 import com.chengqj.springbootsenior.tcp.util.CRC16Util;
 import com.chengqj.springbootsenior.tcp.util.LogUtil;
 import com.chengqj.springbootsenior.tcp.util.ReportUtil;
