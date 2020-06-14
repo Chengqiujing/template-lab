@@ -1,5 +1,7 @@
-package com.chengqj.springbootsenior.tcp.report;
+package com.chengqj.springbootsenior.tcp.report.impl;
 
+import com.chengqj.springbootsenior.tcp.report.AbstractReport;
+import com.chengqj.springbootsenior.tcp.report.ReportTypt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,22 +19,22 @@ public class ValidateRequestReport extends AbstractReport {
     private String collectorNo;
 
     @Override
-    String generateBuildingNo() {
+    protected String generateBuildingNo() {
         return buildingNo;
     }
 
     @Override
-    String generateCollectorNo() {
+    protected String generateCollectorNo() {
         return collectorNo;
     }
 
     @Override
-    String generateType() {
+    protected String generateType() {
         return ReportTypt.ID_VALIDATE_REQUEST;
     }
 
     @Override
-    String generateBzReport() {
+    protected String generateBzReport() {
         return "<id_validate operation=\"request\"/>";
     }
 }

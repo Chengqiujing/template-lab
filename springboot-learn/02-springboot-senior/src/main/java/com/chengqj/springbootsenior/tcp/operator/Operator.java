@@ -1,4 +1,4 @@
-package com.chengqj.springbootsenior.tcp.connect;
+package com.chengqj.springbootsenior.tcp.operator;
 
 import com.chengqj.springbootsenior.tcp.response.Response;
 
@@ -9,4 +9,6 @@ public interface Operator {
     public void send(String report);
 
     public Response receive() throws IOException;
+
+    public boolean destroyDataOperator();
 }

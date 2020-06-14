@@ -1,9 +1,7 @@
-package com.chengqj.springbootsenior.tcp.connect;
+package com.chengqj.springbootsenior.tcp.operator;
 
-import com.chengqj.springbootsenior.tcp.config.ReportConfig;
+import com.chengqj.springbootsenior.tcp.connect.Connector;
 import com.chengqj.springbootsenior.tcp.encrypt.Encryptor;
-import com.chengqj.springbootsenior.tcp.report.Report;
-import com.chengqj.springbootsenior.tcp.report.ReportFactory;
 import com.chengqj.springbootsenior.tcp.response.Response;
 import com.chengqj.springbootsenior.tcp.util.CRC16Util;
 import com.chengqj.springbootsenior.tcp.util.LogUtil;
@@ -11,7 +9,6 @@ import com.chengqj.springbootsenior.tcp.util.ReportUtil;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,11 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/6/11 17:30
  * @Desc
  */
-public class DataOperator implements Operator{
-
-    private static volatile boolean isStop = false;
-
-    private static volatile int period = 5; // 分钟
+public class DataOperator implements Operator {
 
     private static final int RETRY = 3;
 
@@ -107,89 +100,21 @@ public class DataOperator implements Operator{
     /**
      * 销毁
      */
-    public void destroyDataOperator(){
+    public boolean destroyDataOperator(){
         LogUtil.LOGGER.info(">>>>开始销毁>>>>>>>>>");
         if (connector != null) {
             try {
                 connector.close();
             } catch (IOException e) {
                 LogUtil.LOGGER.error("销毁失败，请重启",e);
+                return false;
             }
         }
-        isStop = true;
         LogUtil.LOGGER.info(">>>>销毁完成>>>>>>>>>");
+        return true;
     }
 
-    // 心跳
-    public void heartBeat( ReportConfig reportConfig) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    if(isStop){
-                        LogUtil.LOGGER.info("心跳线程停止...咚~咚...咚~.........");
-                        return;
-                    }
 
-                    Report heartBeatReport = ReportFactory.getHeartBeatReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
-                    send(heartBeatReport.getReport());
-                    try {
-                        Response receive = receive();
-                        LogUtil.LOGGER.info("心跳延时报文\n"+receive.getText());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        LogUtil.LOGGER.warn("心跳延时信息接收失败",e);
-                    }
-
-                    try {
-                        TimeUnit.SECONDS.sleep(period*3);
-                    } catch (InterruptedException e) {
-                        LogUtil.LOGGER.error("心跳线程睡眠被打断",e);
-                    }
-                }
-            }
-        }, "Heart Beat");
-        thread.start();
-    }
-
-    // 身份验证
-    public boolean validate(ReportConfig reportConfig) {
-        try {
-            LogUtil.LOGGER.info("》》》身份验证开始《《《");
-            // 采集器编号，建筑编号是否为空
-            if (reportConfig.getBuildingNo() == null || reportConfig.getCollectorNo() == null) {
-                LogUtil.LOGGER.error("------>报文配置项为空（" + ReportConfig.class.getName() + "），身份无法验证<------");
-                return false;
-            }
-            // 身份验证：获取sequence
-            Report idValidateRequestReport = ReportFactory.getIdValidateRequestReport(reportConfig.getBuildingNo(), reportConfig.getCollectorNo());
-            send(idValidateRequestReport.getReport());
-            Response receive = receive();
-            String sequence = receive.getContentByPath("/root/id_validate/sequence");
-            if (Objects.isNull(sequence)) {
-                LogUtil.LOGGER.error("身份验证异常：返回sequence为空");
-                return false;
-            }
-            LogUtil.LOGGER.info("身份验证：sequence=" + sequence);
-
-            // MD5再次验证
-            Report idValidateMD5Report = ReportFactory
-                    .getIdValidateMD5Report(reportConfig.getBuildingNo(), reportConfig.getCollectorNo(), sequence);
-            send(idValidateMD5Report.getReport());
-            Response md5Receive = receive();
-            String result = md5Receive.getContentByPath("result");
-            if ("pass".equals(result)) {
-                LogUtil.LOGGER.error("》》》身份验证通过《《《");
-                return true;
-            } else {
-                LogUtil.LOGGER.error("》》》身份验证失败：未通过《《《");
-                return false;
-            }
-        } catch (IOException e) {
-            LogUtil.LOGGER.error("身份验证异常：流错误", e);
-        }
-        return false;
-    }
 
 
     /**

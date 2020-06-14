@@ -1,6 +1,10 @@
 package com.chengqj.springbootsenior.tcp.report;
 
 import com.chengqj.springbootsenior.tcp.entity.Meter;
+import com.chengqj.springbootsenior.tcp.report.impl.DataReport;
+import com.chengqj.springbootsenior.tcp.report.impl.HeartBeatReport;
+import com.chengqj.springbootsenior.tcp.report.impl.ValidateMD5Report;
+import com.chengqj.springbootsenior.tcp.report.impl.ValidateRequestReport;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,6 +1,7 @@
-package com.chengqj.springbootsenior.tcp.connect;
+package com.chengqj.springbootsenior.tcp.connect.impl;
 
 import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
+import com.chengqj.springbootsenior.tcp.connect.Connector;
 
 import java.io.IOException;
 import java.io.InputStream;

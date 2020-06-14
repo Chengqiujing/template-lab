@@ -27,12 +27,12 @@ public abstract class AbstractReport implements Report{
         return sb.toString();
     }
 
-    abstract String generateBuildingNo();
+    protected abstract String generateBuildingNo();
 
-    abstract String generateCollectorNo();
+    protected abstract String generateCollectorNo();
 
-    abstract String generateType();
+    protected abstract String generateType();
 
-    abstract String generateBzReport();
+    protected abstract String generateBzReport();
 
 }

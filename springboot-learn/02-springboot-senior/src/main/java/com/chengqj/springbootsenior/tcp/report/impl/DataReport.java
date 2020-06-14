@@ -1,7 +1,9 @@
-package com.chengqj.springbootsenior.tcp.report;
+package com.chengqj.springbootsenior.tcp.report.impl;
 
 import com.chengqj.springbootsenior.tcp.entity.Function;
 import com.chengqj.springbootsenior.tcp.entity.Meter;
+import com.chengqj.springbootsenior.tcp.report.AbstractReport;
+import com.chengqj.springbootsenior.tcp.report.ReportTypt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -43,22 +45,22 @@ public class DataReport extends AbstractReport {
 
 
     @Override
-    String generateBuildingNo() {
+    protected String generateBuildingNo() {
         return buildingNo;
     }
 
     @Override
-    String generateCollectorNo() {
+    protected String generateCollectorNo() {
         return collectorNo;
     }
 
     @Override
-    String generateType() {
+    protected String generateType() {
         return ReportTypt.HEART_BEAT_NOTIFY;
     }
 
     @Override
-    String generateBzReport() {
+    protected String generateBzReport() {
         StringBuilder sb = new StringBuilder();
         sb.append("  <data operation=\"report\">\n")
           .append("    <sequence>")

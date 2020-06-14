@@ -1,5 +1,7 @@
-package com.chengqj.springbootsenior.tcp.report;
+package com.chengqj.springbootsenior.tcp.report.impl;
 
+import com.chengqj.springbootsenior.tcp.report.AbstractReport;
+import com.chengqj.springbootsenior.tcp.report.ReportTypt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,22 +19,22 @@ public class HeartBeatReport extends AbstractReport {
     private String collectorNo;
 
     @Override
-    String generateBuildingNo() {
+    protected String generateBuildingNo() {
         return buildingNo;
     }
 
     @Override
-    String generateCollectorNo() {
+    protected String generateCollectorNo() {
         return collectorNo;
     }
 
     @Override
-    String generateType() {
+    protected String generateType() {
         return ReportTypt.HEART_BEAT_NOTIFY;
     }
 
     @Override
-    String generateBzReport() {
+    protected String generateBzReport() {
 
         return "  <heart_beat operation=\"notify\"/>";
     }

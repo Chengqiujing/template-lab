@@ -7,6 +7,6 @@ package com.chengqj.springbootsenior.tcp.response;
  */
 public interface ResponseResolver {
 
-    void dealWith();
+    void dealWith(Response response);
 
 }
