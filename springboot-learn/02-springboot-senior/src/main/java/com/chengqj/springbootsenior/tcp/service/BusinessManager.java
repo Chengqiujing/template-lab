@@ -4,15 +4,22 @@ import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
 import com.chengqj.springbootsenior.tcp.config.ReportConfig;
 import com.chengqj.springbootsenior.tcp.connect.Connector;
 import com.chengqj.springbootsenior.tcp.connect.ConnectorFactory;
+import com.chengqj.springbootsenior.tcp.entity.Meter;
 import com.chengqj.springbootsenior.tcp.operator.DataOperatorBuilder;
 import com.chengqj.springbootsenior.tcp.operator.Operator;
 import com.chengqj.springbootsenior.tcp.report.Report;
 import com.chengqj.springbootsenior.tcp.report.ReportFactory;
+import com.chengqj.springbootsenior.tcp.report.ReportTypt;
 import com.chengqj.springbootsenior.tcp.response.Response;
+import com.chengqj.springbootsenior.tcp.response.ResponseResoleverHandler;
+import com.chengqj.springbootsenior.tcp.response.impl.HeartBeatResponseResolver;
 import com.chengqj.springbootsenior.tcp.util.LogUtil;
 import lombok.AllArgsConstructor;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +35,11 @@ public class BusinessManager {
 
     private final static int period = 5; // 心跳间隔5分钟
 
+    private final static int dataPeriod = 15; // 15分钟发送
+
     private ReportConfig reportConfig;
+
+    private ResponseResoleverHandler handler;
 
     // 心跳
     public void heartBeat() {
@@ -101,11 +112,38 @@ public class BusinessManager {
         return false;
     }
 
-
-    public void sendDataTimune(){
-
+    private Report getDataReport(){
+        List<Meter> list = new ArrayList<>();
+        Report dataReport = ReportFactory.getDataReport(reportConfig.getBuildingNo(),
+                reportConfig.getCollectorNo(), "123", true,
+                LocalDateTime.now(), list);
+        return dataReport;
     }
 
+    public void sendDataTimune(){
+        while(true){
+            Report dataReport = getDataReport();
+            operator.send(dataReport.getReport());
+            try {
+                TimeUnit.MINUTES.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void dealwithResponse(){
+        while(true){
+            try {
+                Response receive = operator.receive();
+                handler.deal(receive);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
 
     public static void main(String[] args) {
         ConnectConfig connectConfig = new ConnectConfig();
@@ -119,15 +157,17 @@ public class BusinessManager {
         Connector connector = ConnectorFactory.getTCPConnector(connectConfig);
         Operator dataOperator = DataOperatorBuilder.getDataOperator(connector);
 
-        BusinessManager businessManager = new BusinessManager(dataOperator,reportConfig);
+
+        ResponseResoleverHandler handler = new ResponseResoleverHandler();
+        handler.register(ReportTypt.HEART_BEAT_TIME, new HeartBeatResponseResolver());
+
+        BusinessManager businessManager = new BusinessManager(dataOperator,reportConfig,handler);
 
         if (businessManager.validate()) {
             businessManager.heartBeat(); // 心跳
-
-
+            businessManager.dealwithResponse();
+            businessManager.sendDataTimune();
         }
-
-
 
 
     }

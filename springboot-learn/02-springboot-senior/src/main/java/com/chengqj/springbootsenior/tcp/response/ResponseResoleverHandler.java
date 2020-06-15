@@ -11,14 +11,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ResponseResoleverHandler {
     Map<String,ResponseResolver> handlerMap = new ConcurrentHashMap<>();
 
-    void register(String key,ResponseResolver resolver){
+    public void register(String key,ResponseResolver resolver){
         if(key == null||resolver == null) return;
         handlerMap.put(key,resolver);
     }
 
-    void deal(){
-
-//        handlerMap.get()
+    public void deal(Response response){
+        String contentByPath = response.getContentByPath("/root/common/type");
+        ResponseResolver responseResolver = handlerMap.get(contentByPath);
+        responseResolver.dealWith(response);
     }
 
 }
