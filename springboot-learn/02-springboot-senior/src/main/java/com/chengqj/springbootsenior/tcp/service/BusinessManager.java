@@ -59,7 +59,7 @@ public class BusinessManager {
                     }
 
                     try {
-                        TimeUnit.SECONDS.sleep(PERIOD*3);
+                        TimeUnit.MINUTES.sleep(PERIOD);
                     } catch (InterruptedException e) {
                         LogUtil.LOGGER.error("心跳线程睡眠被打断",e);
                     }
@@ -119,18 +119,22 @@ public class BusinessManager {
      */
     public void sendDataInterval(){
         Thread dataSender = new Thread(()->{
+            Report dataReport = null;
             while(runnig){
                 try {
-                    Report dataReport = getDataReport();
+                    dataReport = getDataReport();
                     operator.send(dataReport.getReport());
                     runStatus.put("dataInterval",true);
                 } catch (IOException e) {
+                    if (dataReport != null) {
+                        DataPushClient.report = dataReport;
+                    }
                     runnig = false;
                     runStatus.put("dataInterval",false);
                     LogUtil.LOGGER.error("数据上传线程异常：数据上传线程报错关闭",e);
                 }
                 try {
-                    TimeUnit.SECONDS.sleep(dataPeriod);
+                    TimeUnit.MINUTES.sleep(dataPeriod);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -184,8 +188,13 @@ public class BusinessManager {
 
     private Report getDataReport(){
 
-        List<Meter> list = new ArrayList<>();
+        List<Meter> list = null;
 
+        if(DataPushClient.report != null){
+            // TODO 取这个点到现在这个点的数据 service
+        }else{
+            list = new ArrayList<>();
+        }
 
         Report dataReport = ReportFactory.getDataReport(reportConfig.getBuildingNo(),
                 reportConfig.getCollectorNo(), "123", true,

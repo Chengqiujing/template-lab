@@ -6,6 +6,7 @@ import com.chengqj.springbootsenior.tcp.connect.Connector;
 import com.chengqj.springbootsenior.tcp.connect.ConnectorFactory;
 import com.chengqj.springbootsenior.tcp.operator.DataOperatorBuilder;
 import com.chengqj.springbootsenior.tcp.operator.Operator;
+import com.chengqj.springbootsenior.tcp.report.Report;
 import com.chengqj.springbootsenior.tcp.report.ReportTypt;
 import com.chengqj.springbootsenior.tcp.response.ResponseResoleverHandler;
 import com.chengqj.springbootsenior.tcp.response.impl.HeartBeatResponseResolver;
@@ -23,6 +24,8 @@ public class DataPushClient {
     private final static int FIXED_THREDS = 3; // 处理业务逻辑线程数量
 
     BusinessManager businessManager;
+
+    public static Report report = null;
 
     public void start(){
         while(true) {

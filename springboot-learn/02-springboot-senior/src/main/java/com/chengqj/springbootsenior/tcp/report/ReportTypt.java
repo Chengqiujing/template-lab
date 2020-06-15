@@ -21,4 +21,10 @@ public class ReportTypt {
     public final static String DATA_CONTINUOUS = "continuous";
     public final static String DATA_CONTINUOUS_ACK = "continuous_ack";
 
+
+    public final static String DATA_AUTO_HISTORY = "auto_history";
+    public final static String DATA_AUTO_HISTORY_ACK = "auto_history_ack";
+
+
+
 }
