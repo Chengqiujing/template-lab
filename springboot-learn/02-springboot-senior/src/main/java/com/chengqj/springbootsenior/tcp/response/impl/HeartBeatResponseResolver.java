@@ -2,6 +2,7 @@ package com.chengqj.springbootsenior.tcp.response.impl;
 
 import com.chengqj.springbootsenior.tcp.response.Response;
 import com.chengqj.springbootsenior.tcp.response.ResponseResolver;
+import com.chengqj.springbootsenior.tcp.util.LogUtil;
 
 /**
  * @Author chengqiujing
@@ -11,6 +12,10 @@ import com.chengqj.springbootsenior.tcp.response.ResponseResolver;
 public class HeartBeatResponseResolver implements ResponseResolver {
     @Override
     public void dealWith(Response response) {
-        System.out.println("延续了多长时间");
+        String time = response.getContentByPath("/root/heart_beat/time");
+        if(time != null){
+            LogUtil.LOGGER.info("心跳延时时间：" + time);
+        }
+
     }
 }

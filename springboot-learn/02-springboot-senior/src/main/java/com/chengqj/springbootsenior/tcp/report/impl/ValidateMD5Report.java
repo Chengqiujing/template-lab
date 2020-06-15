@@ -38,6 +38,6 @@ public class ValidateMD5Report extends AbstractReport {
 
     @Override
     protected String generateBzReport() {
-        return "<id_validate operation=\"md5\"><md5>" + MD5Util.md5Encode(sequence, null) + "</md5></id_validate>"; // md5编码;
+        return "<id_validate operation=\"md5\"><md5>" + MD5Util.md5Encode(sequence, null).toLowerCase() + "</md5></id_validate>"; // md5编码;
     }
 }

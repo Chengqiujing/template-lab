@@ -35,14 +35,14 @@ public class DataOperator implements Operator {
      * 发送报文
      * @param report
      */
-    public void send(String report){
+    public void send(String report) throws IOException {
         try {
             synchronized (this) {
                 LogUtil.LOGGER.info(">>>>>>>>>>发送报文<<<<<<<<<<<\n"+report);
                 byte[] packg = packg(report, null);
                 connector.send(packg);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
 
             LogUtil.LOGGER.error(">>>>>>>>>>报文发送失败,重试第"+count+"次<<<<<<<<<<<",e);
             if(count <= RETRY){
@@ -50,6 +50,7 @@ public class DataOperator implements Operator {
                 send(report);
             }
             count = 1;
+            throw e;
         }
     }
 
@@ -59,7 +60,7 @@ public class DataOperator implements Operator {
      * @throws IOException
      */
     public Response receive() throws IOException {
-        LogUtil.LOGGER.info(">>>>>>>>>>等待接收报文<<<<<<<<<<<");
+        LogUtil.LOGGER.info("等待接收报文");
         byte[] bytes = new byte[4];
         byte[] crc = new byte[2];
         int count = 0; // 防止回写数据为无效数据，倒置CPU升高
@@ -100,17 +101,17 @@ public class DataOperator implements Operator {
     /**
      * 销毁
      */
-    public boolean destroyDataOperator(){
-        LogUtil.LOGGER.info(">>>>开始销毁>>>>>>>>>");
+    public boolean close(){
+        LogUtil.LOGGER.info(">>>>开始关闭>>>>>>>>>");
         if (connector != null) {
             try {
                 connector.close();
             } catch (IOException e) {
-                LogUtil.LOGGER.error("销毁失败，请重启",e);
+                LogUtil.LOGGER.error("关闭失败，请重启",e);
                 return false;
             }
         }
-        LogUtil.LOGGER.info(">>>>销毁完成>>>>>>>>>");
+        LogUtil.LOGGER.info(">>>>关闭完成>>>>>>>>>");
         return true;
     }
 
@@ -125,8 +126,8 @@ public class DataOperator implements Operator {
      * CRC校验 2字节 只对有效数据进行CRC校验
      * 包尾 4字节 0x55 0xAA 0x55 0xAA
      */
-    private byte[] packg(String report,Integer sequence) throws Exception {
-        System.out.println("AES加密后：" + ReportUtil.byteToHex(encryptor.encrypt(report)));
+    private byte[] packg(String report,Integer sequence) {
+//        System.out.println("AES加密后：" + ReportUtil.byteToHex(encryptor.encrypt(report)));
         byte[] bytes = encryptor.encrypt(report); // 加密后指令内容
 
         System.out.println("加密后数组长度："+bytes.length);
@@ -159,14 +160,14 @@ public class DataOperator implements Operator {
         // 有效数据
         System.arraycopy(bytes, 0, packBytes, 12, bytes.length);
 
-        System.out.println("crc16进制字节数组:" + ReportUtil.byteToHex(Arrays.copyOfRange(packBytes,8,dataLenght+8)));
+//        System.out.println("crc16进制字节数组:" + ReportUtil.byteToHex(Arrays.copyOfRange(packBytes,8,dataLenght+8)));
         // CRC校验
         int crc = CRC16Util.getCRC(Arrays.copyOfRange(packBytes,8,dataLenght+8));
         System.out.println("CRC校验：" + Integer.toHexString(crc));
         packBytes[packBytes.length - 5] = (byte) (crc >>> 8);
         packBytes[packBytes.length - 6] = (byte) crc;
 
-        System.out.println("最终发送包："+ ReportUtil.byteToHex(packBytes));
+//        System.out.println("最终发送包："+ ReportUtil.byteToHex(packBytes));
         return packBytes;
     }
 

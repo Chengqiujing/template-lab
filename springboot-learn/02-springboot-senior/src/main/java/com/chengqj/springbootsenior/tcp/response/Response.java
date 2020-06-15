@@ -14,7 +14,6 @@ public class Response {
 
     private String text;
 
-
     public String getContentByPath(String xpath){
         try {
             return XmlUtil.getTextByElement(text,xpath);

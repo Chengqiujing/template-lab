@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public interface Operator {
 
-    public void send(String report);
+    public void send(String report) throws IOException;
 
     public Response receive() throws IOException;
 
-    public boolean destroyDataOperator();
+    public boolean close();
 }
