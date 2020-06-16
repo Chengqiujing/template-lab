@@ -1,4 +1,4 @@
-package com.chengqj.springbootsenior.tcp.util;
+package com.ganwei.datapush.tcp.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
