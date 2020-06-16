@@ -1,16 +1,18 @@
 package com.ganwei.datapush.tcp.service;
 
-import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
-import com.chengqj.springbootsenior.tcp.config.ReportConfig;
-import com.chengqj.springbootsenior.tcp.connect.Connector;
-import com.chengqj.springbootsenior.tcp.connect.ConnectorFactory;
-import com.chengqj.springbootsenior.tcp.operator.DataOperatorBuilder;
-import com.chengqj.springbootsenior.tcp.operator.Operator;
-import com.chengqj.springbootsenior.tcp.report.Report;
-import com.chengqj.springbootsenior.tcp.report.ReportTypt;
-import com.chengqj.springbootsenior.tcp.response.ResponseResoleverHandler;
-import com.chengqj.springbootsenior.tcp.response.impl.HeartBeatResponseResolver;
-import com.chengqj.springbootsenior.tcp.util.LogUtil;
+
+import com.ganwei.datapush.tcp.config.ConnectConfig;
+import com.ganwei.datapush.tcp.config.ReportConfig;
+import com.ganwei.datapush.tcp.connect.Connector;
+import com.ganwei.datapush.tcp.connect.ConnectorFactory;
+import com.ganwei.datapush.tcp.operator.DataOperatorBuilder;
+import com.ganwei.datapush.tcp.operator.Operator;
+import com.ganwei.datapush.tcp.report.Report;
+import com.ganwei.datapush.tcp.report.ReportTypt;
+import com.ganwei.datapush.tcp.response.ResponseResoleverHandler;
+import com.ganwei.datapush.tcp.response.impl.HeartBeatResponseResolver;
+import com.ganwei.datapush.tcp.service.impl.PointDataServiceImpl;
+import com.ganwei.datapush.tcp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,10 +42,11 @@ public class DataPushClient {
             Connector connector = ConnectorFactory.getTCPConnector(connectConfig);
             Operator dataOperator = DataOperatorBuilder.getDataOperator(connector);
 
+            // 相应处理器
             ResponseResoleverHandler handler = new ResponseResoleverHandler(FIXED_THREDS);
-            handler.register(ReportTypt.HEART_BEAT_TIME, new HeartBeatResponseResolver());
+            handler.register(ReportTypt.HEART_BEAT_TIME, new HeartBeatResponseResolver());  // 注册心跳响应处理
 
-            businessManager = new BusinessManager(dataOperator, true, reportConfig, handler);
+            businessManager = new BusinessManager(dataOperator, true, reportConfig, handler, new PointDataServiceImpl());
 
             if (businessManager.validate()) {
                 businessManager.heartBeat(); // 心跳

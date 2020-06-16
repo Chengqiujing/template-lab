@@ -1,8 +1,8 @@
 package com.ganwei.datapush.tcp.connect;
 
-import com.chengqj.springbootsenior.exceptionhandler.GlobalExceptionHandler;
-import com.chengqj.springbootsenior.tcp.config.ConnectConfig;
-import com.chengqj.springbootsenior.tcp.connect.impl.TCPConnectiorImpl;
+
+import com.ganwei.datapush.tcp.config.ConnectConfig;
+import com.ganwei.datapush.tcp.connect.impl.TCPConnectiorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ConnectorFactory {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConnectorFactory.class);
 
     private final static int RETRY_COUNT = 3;
 

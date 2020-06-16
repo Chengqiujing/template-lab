@@ -1,11 +1,12 @@
 package com.ganwei.datapush.tcp.operator;
 
-import com.chengqj.springbootsenior.tcp.connect.Connector;
-import com.chengqj.springbootsenior.tcp.encrypt.Encryptor;
-import com.chengqj.springbootsenior.tcp.response.Response;
-import com.chengqj.springbootsenior.tcp.util.CRC16Util;
-import com.chengqj.springbootsenior.tcp.util.LogUtil;
-import com.chengqj.springbootsenior.tcp.util.ReportUtil;
+
+import com.ganwei.datapush.tcp.connect.Connector;
+import com.ganwei.datapush.tcp.encrypt.Encryptor;
+import com.ganwei.datapush.tcp.response.Response;
+import com.ganwei.datapush.tcp.util.CRC16Util;
+import com.ganwei.datapush.tcp.util.LogUtil;
+import com.ganwei.datapush.tcp.util.ReportUtil;
 
 import java.io.IOException;
 import java.util.Arrays;

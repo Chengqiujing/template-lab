@@ -1,13 +1,14 @@
 package com.ganwei.datapush.tcp.service;
 
-import com.chengqj.springbootsenior.tcp.config.ReportConfig;
-import com.chengqj.springbootsenior.tcp.entity.Meter;
-import com.chengqj.springbootsenior.tcp.operator.Operator;
-import com.chengqj.springbootsenior.tcp.report.Report;
-import com.chengqj.springbootsenior.tcp.report.ReportFactory;
-import com.chengqj.springbootsenior.tcp.response.Response;
-import com.chengqj.springbootsenior.tcp.response.ResponseResoleverHandler;
-import com.chengqj.springbootsenior.tcp.util.LogUtil;
+
+import com.ganwei.datapush.tcp.config.ReportConfig;
+import com.ganwei.datapush.tcp.entity.Meter;
+import com.ganwei.datapush.tcp.operator.Operator;
+import com.ganwei.datapush.tcp.report.Report;
+import com.ganwei.datapush.tcp.report.ReportFactory;
+import com.ganwei.datapush.tcp.response.Response;
+import com.ganwei.datapush.tcp.response.ResponseResoleverHandler;
+import com.ganwei.datapush.tcp.util.LogUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -39,6 +40,8 @@ public class BusinessManager {
     private ResponseResoleverHandler handler;
 
     private final Map<String,Boolean> runStatus = new ConcurrentHashMap<>();
+
+    private PointDataService pointDataService;
 
     /**
      * 心跳线程
@@ -122,9 +125,15 @@ public class BusinessManager {
             Report dataReport = null;
             while(runnig){
                 try {
-                    dataReport = getDataReport();
+                    // 断点情况
+                    if(DataPushClient.report != null){
+                        dataReport = DataPushClient.report;
+                    }else{
+                        dataReport = getDataReport();
+                    }
                     operator.send(dataReport.getReport());
                     runStatus.put("dataInterval",true);
+                    DataPushClient.report = null;
                 } catch (IOException e) {
                     if (dataReport != null) {
                         DataPushClient.report = dataReport;
@@ -134,7 +143,8 @@ public class BusinessManager {
                     LogUtil.LOGGER.error("数据上传线程异常：数据上传线程报错关闭",e);
                 }
                 try {
-                    TimeUnit.MINUTES.sleep(dataPeriod);
+//                    TimeUnit.MINUTES.sleep(dataPeriod);
+                    TimeUnit.SECONDS.sleep(dataPeriod);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -191,13 +201,13 @@ public class BusinessManager {
         List<Meter> list = null;
 
         if(DataPushClient.report != null){
-            // TODO 取这个点到现在这个点的数据 service
+            list = pointDataService.getData();
         }else{
             list = new ArrayList<>();
         }
 
         Report dataReport = ReportFactory.getDataReport(reportConfig.getBuildingNo(),
-                reportConfig.getCollectorNo(), "123", true,
+                reportConfig.getCollectorNo(), String.valueOf(System.currentTimeMillis()), true,
                 LocalDateTime.now(), list);
         return dataReport;
     }

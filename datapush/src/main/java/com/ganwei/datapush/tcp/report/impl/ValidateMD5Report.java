@@ -1,8 +1,9 @@
 package com.ganwei.datapush.tcp.report.impl;
 
-import com.chengqj.springbootsenior.tcp.report.AbstractReport;
-import com.chengqj.springbootsenior.tcp.report.ReportTypt;
-import com.chengqj.springbootsenior.tcp.util.MD5Util;
+
+import com.ganwei.datapush.tcp.report.AbstractReport;
+import com.ganwei.datapush.tcp.report.ReportTypt;
+import com.ganwei.datapush.tcp.util.MD5Util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,6 +1,7 @@
 package com.ganwei.datapush.tcp.response;
 
-import com.chengqj.springbootsenior.tcp.util.XmlUtil;
+
+import com.ganwei.datapush.tcp.util.XmlUtil;
 import lombok.Data;
 import org.dom4j.DocumentException;
 

@@ -1,10 +1,11 @@
 package com.ganwei.datapush.tcp.report;
 
-import com.chengqj.springbootsenior.tcp.entity.Meter;
-import com.chengqj.springbootsenior.tcp.report.impl.DataReport;
-import com.chengqj.springbootsenior.tcp.report.impl.HeartBeatReport;
-import com.chengqj.springbootsenior.tcp.report.impl.ValidateMD5Report;
-import com.chengqj.springbootsenior.tcp.report.impl.ValidateRequestReport;
+
+import com.ganwei.datapush.tcp.entity.Meter;
+import com.ganwei.datapush.tcp.report.impl.DataReport;
+import com.ganwei.datapush.tcp.report.impl.HeartBeatReport;
+import com.ganwei.datapush.tcp.report.impl.ValidateMD5Report;
+import com.ganwei.datapush.tcp.report.impl.ValidateRequestReport;
 
 import java.time.LocalDateTime;
 import java.util.List;

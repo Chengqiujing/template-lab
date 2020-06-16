@@ -1,6 +1,9 @@
 package com.ganwei.datapush.tcp.service;
 
+import com.ganwei.datapush.tcp.entity.Meter;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Author chengqiujing
@@ -8,9 +11,7 @@ import org.springframework.stereotype.Component;
  * @Desc
  */
 @Component
-public class PointDataService {
+public interface PointDataService {
 
-    public static void main(String[] args) {
-
-    }
+    public List<Meter> getData();
 }

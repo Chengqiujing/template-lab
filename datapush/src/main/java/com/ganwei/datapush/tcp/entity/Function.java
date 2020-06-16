@@ -2,8 +2,6 @@ package com.ganwei.datapush.tcp.entity;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * @Author chengqiujing
  * @Date 2020/6/12 14:09
@@ -26,7 +24,7 @@ public class Function {
     /**
      * 采集时间 yyyyMMddHHmmss
      */
-    private LocalDateTime functionSampleTime;
+    private String functionSampleTime;
     /**
      * 数据值
      */

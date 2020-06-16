@@ -1,13 +1,15 @@
 package com.ganwei.datapush.tcp.report.impl;
 
-import com.chengqj.springbootsenior.tcp.entity.Function;
-import com.chengqj.springbootsenior.tcp.entity.Meter;
-import com.chengqj.springbootsenior.tcp.report.AbstractReport;
-import com.chengqj.springbootsenior.tcp.report.ReportTypt;
+
+import com.ganwei.datapush.tcp.entity.Function;
+import com.ganwei.datapush.tcp.entity.Meter;
+import com.ganwei.datapush.tcp.report.AbstractReport;
+import com.ganwei.datapush.tcp.report.ReportTypt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -61,6 +63,7 @@ public class DataReport extends AbstractReport {
 
     @Override
     protected String generateBzReport() {
+        String formatTime = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(time);
         StringBuilder sb = new StringBuilder();
         sb.append("  <data operation=\"report\">\n")
           .append("    <sequence>")
@@ -70,7 +73,7 @@ public class DataReport extends AbstractReport {
           .append(parse? "yes":"no")
           .append("</parse>\n")
           .append("    <time>")
-          .append(time)
+          .append(formatTime)
           .append("</time>\n");
 
         for (Meter meter : meters) {

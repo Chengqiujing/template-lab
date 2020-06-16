@@ -1,7 +1,8 @@
 package com.ganwei.datapush.tcp.operator;
 
-import com.chengqj.springbootsenior.tcp.connect.Connector;
-import com.chengqj.springbootsenior.tcp.encrypt.AESEncryptor;
+
+import com.ganwei.datapush.tcp.connect.Connector;
+import com.ganwei.datapush.tcp.encrypt.AESEncryptor;
 
 public class DataOperatorBuilder {
 

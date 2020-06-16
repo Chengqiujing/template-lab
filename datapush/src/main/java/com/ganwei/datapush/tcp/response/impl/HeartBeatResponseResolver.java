@@ -1,8 +1,9 @@
 package com.ganwei.datapush.tcp.response.impl;
 
-import com.chengqj.springbootsenior.tcp.response.Response;
-import com.chengqj.springbootsenior.tcp.response.ResponseResolver;
-import com.chengqj.springbootsenior.tcp.util.LogUtil;
+
+import com.ganwei.datapush.tcp.response.Response;
+import com.ganwei.datapush.tcp.response.ResponseResolver;
+import com.ganwei.datapush.tcp.util.LogUtil;
 
 /**
  * @Author chengqiujing
