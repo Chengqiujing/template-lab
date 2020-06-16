@@ -18,6 +18,7 @@ public class ReportTypt {
 
     public final static String DATA_QUERY = "query";
     public final static String DATA_REPLY = "reply";
+    public final static String DATA_REPORT = "report";
     public final static String DATA_CONTINUOUS = "continuous";
     public final static String DATA_CONTINUOUS_ACK = "continuous_ack";
 

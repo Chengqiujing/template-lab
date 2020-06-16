@@ -14,7 +14,10 @@ import lombok.Data;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +36,7 @@ public class BusinessManager {
 
     private volatile boolean runnig = true;
 
-    private final static int PERIOD = 5; // 心跳间隔5分钟
+    private final static int HEART_PERIOD = 5; // 心跳间隔5分钟
 
     private ReportConfig reportConfig;
 
@@ -62,7 +65,7 @@ public class BusinessManager {
                     }
 
                     try {
-                        TimeUnit.MINUTES.sleep(PERIOD);
+                        TimeUnit.MINUTES.sleep(HEART_PERIOD);
                     } catch (InterruptedException e) {
                         LogUtil.LOGGER.error("心跳线程睡眠被打断",e);
                     }
@@ -131,7 +134,9 @@ public class BusinessManager {
                     }else{
                         dataReport = getDataReport();
                     }
-                    operator.send(dataReport.getReport());
+                    if(dataReport != null){
+                        operator.send(dataReport.getReport());
+                    }
                     runStatus.put("dataInterval",true);
                     DataPushClient.report = null;
                 } catch (IOException e) {
@@ -144,7 +149,7 @@ public class BusinessManager {
                 }
                 try {
 //                    TimeUnit.MINUTES.sleep(dataPeriod);
-                    TimeUnit.SECONDS.sleep(dataPeriod);
+                    TimeUnit.SECONDS.sleep(dataPeriod*2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -198,14 +203,10 @@ public class BusinessManager {
 
     private Report getDataReport(){
 
-        List<Meter> list = null;
-
-        if(DataPushClient.report != null){
-            list = pointDataService.getData();
-        }else{
-            list = new ArrayList<>();
+        List<Meter> list = pointDataService.getData();
+        if (list == null || list.size() == 0) {
+            return null;
         }
-
         Report dataReport = ReportFactory.getDataReport(reportConfig.getBuildingNo(),
                 reportConfig.getCollectorNo(), String.valueOf(System.currentTimeMillis()), true,
                 LocalDateTime.now(), list);

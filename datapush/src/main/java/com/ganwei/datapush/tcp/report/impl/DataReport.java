@@ -58,7 +58,7 @@ public class DataReport extends AbstractReport {
 
     @Override
     protected String generateType() {
-        return ReportTypt.HEART_BEAT_NOTIFY;
+        return ReportTypt.DATA_REPORT;
     }
 
     @Override
