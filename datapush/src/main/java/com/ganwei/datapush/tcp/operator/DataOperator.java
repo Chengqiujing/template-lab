@@ -45,6 +45,7 @@ public class DataOperator implements Operator {
                 logger.info(">>>>>>>>>>发送报文<<<<<<<<<<<\n"+report);
                 byte[] packg = packg(report, null);
                 connector.send(packg);
+                logger.info(">>>>>>>>>>发送报文成功<<<<<<<<<<<\n");
             }
         } catch (IOException e) {
 

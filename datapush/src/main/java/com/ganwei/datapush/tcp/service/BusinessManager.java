@@ -151,17 +151,16 @@ public class BusinessManager {
                     logger.error("数据上传线程异常：数据上传线程报错关闭",e);
                 }
                 try {
-//                    TimeUnit.MINUTES.sleep(dataPeriod);
-                    TimeUnit.SECONDS.sleep(dataPeriod*2);
+                    TimeUnit.MINUTES.sleep(dataPeriod);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             runStatus.put("dataInterval",false);
-            logger.info("定时发送数据线程（Data Send Inteval）关闭");
-        },"Data Send Inteval");
+            logger.info("定时发送数据线程（DataSendInteval）关闭");
+        },"DataSendInteval");
         dataSender.start();
-        logger.info("定时发送数据线程（Data Send Inteval）启动");
+        logger.info("定时发送数据线程（DataSendInteval）启动");
     }
 
     /**
