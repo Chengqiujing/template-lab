@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Data
 public class ReportConfig {
 
-    @Value("{$weijing.report.buildingNo}")
+    @Value("${weijing.report.buildingNo}")
     private String buildingNo;
 
-    @Value("{$weijing.report.collectorNo}")
+    @Value("${weijing.report.collectorNo}")
     private String collectorNo;
 }

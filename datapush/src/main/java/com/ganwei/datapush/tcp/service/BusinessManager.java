@@ -171,7 +171,7 @@ public class BusinessManager {
             while(runnig){
                 try {
                     Response receive = operator.receive();
-                    handler.deal(receive);
+                    handler.deal(receive,operator);
                 } catch (IOException e) {
                     runnig = false;
                     logger.error("结果处理线程异常：结果处理线程报错关闭",e);

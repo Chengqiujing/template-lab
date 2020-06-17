@@ -5,20 +5,20 @@ spring:
     name: weijing-data-push
 
 #\u65E5\u5FD7\u7EA7\u522B trace<debug<info<warn<error<fatal
-logging:
-  level:
-    root: warn
-    com.ganwei.datapush: debug
-  pattern:
-    console: '%p%m%n'
+#logging:
+#  level:
+#    root: warn
+#    com.ganwei.datapush: debug
+#  pattern:
+#    console: '%p%m%n'
 #logging:
 #  config:
 #    classpath: logback-spring.xml
 
 weijing:
   conn:
-    ip:
-    port:
+    ip: 218.17.122.52
+    port: 32886
   report:
-    buildingNo:
-    collectorNo:
+    buildingNo: GW123
+    collectorNo: GW001

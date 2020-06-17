@@ -1,6 +1,7 @@
 package com.ganwei.datapush.tcp.starter;
 
 import com.ganwei.datapush.tcp.service.DataPushClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DataPushRunner implements ApplicationRunner {
+    @Autowired
+    DataPushClient client;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        DataPushClient client = new DataPushClient();
+//        DataPushClient client = new DataPushClient();
         client.start();
     }
 }

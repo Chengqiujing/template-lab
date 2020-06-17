@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class ConnectConfig {
-    @Value("{$weijing.conn.ip}")
+    @Value("${weijing.conn.ip}")
     private String ip;
 
-    @Value("{$weijing.conn.port}")
+    @Value("${weijing.conn.port}")
     private int port;
 }

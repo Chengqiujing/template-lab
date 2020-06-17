@@ -1,6 +1,7 @@
 package com.ganwei.datapush.tcp.response;
 
 
+import com.ganwei.datapush.tcp.operator.Operator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +32,13 @@ public class ResponseResoleverHandler {
         handlerMap.put(key,resolver);
     }
 
-    public void deal(Response response){
+    public void deal(Response response, Operator operator){
         executorService.submit(() -> {
             logger.info("获得处理结果线程");
             String contentByPath = response.getContentByPath("/root/common/type");
             ResponseResolver responseResolver = handlerMap.get(contentByPath);
             if (responseResolver != null) {
-                responseResolver.dealWith(response);
+                responseResolver.dealWith(response,operator);
             } else {
                 logger.info("没有此报文的业务处理器");
             }

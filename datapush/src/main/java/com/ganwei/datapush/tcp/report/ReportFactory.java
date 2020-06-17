@@ -2,10 +2,7 @@ package com.ganwei.datapush.tcp.report;
 
 
 import com.ganwei.datapush.tcp.entity.Meter;
-import com.ganwei.datapush.tcp.report.impl.DataReport;
-import com.ganwei.datapush.tcp.report.impl.HeartBeatReport;
-import com.ganwei.datapush.tcp.report.impl.ValidateMD5Report;
-import com.ganwei.datapush.tcp.report.impl.ValidateRequestReport;
+import com.ganwei.datapush.tcp.report.impl.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +13,8 @@ import java.util.List;
  * @Desc
  */
 public class ReportFactory {
+
+
     private ReportFactory() {
     }
 
@@ -64,5 +63,15 @@ public class ReportFactory {
      */
     public static Report getDataReport(String buildingNo, String collectorNo, String dataSequence, boolean parse, LocalDateTime dateTime, List<Meter> meters) {
         return new DataReport(buildingNo, collectorNo, dataSequence, parse, dateTime, meters);
+    }
+
+    /**
+     * 配置报文
+     * @param buildingNo
+     * @param collectorNo
+     * @return
+     */
+    public static Report getConfigAckReport(String buildingNo, String collectorNo){
+        return new ConfigAckReport(buildingNo,collectorNo);
     }
 }

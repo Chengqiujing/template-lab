@@ -1,6 +1,7 @@
 package com.ganwei.datapush.tcp.response.impl;
 
 
+import com.ganwei.datapush.tcp.operator.Operator;
 import com.ganwei.datapush.tcp.response.Response;
 import com.ganwei.datapush.tcp.response.ResponseResolver;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class HeartBeatResponseResolver implements ResponseResolver {
     private final Logger logger = LoggerFactory.getLogger(HeartBeatResponseResolver.class);
     @Override
-    public void dealWith(Response response) {
+    public void dealWith(Response response, Operator operator) {
         String time = response.getContentByPath("/root/heart_beat/time");
         if(time != null){
             logger.info("心跳延时时间：" + time);

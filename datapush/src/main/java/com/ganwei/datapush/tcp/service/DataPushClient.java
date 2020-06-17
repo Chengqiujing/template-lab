@@ -15,6 +15,8 @@ import com.ganwei.datapush.tcp.response.impl.HeartBeatResponseResolver;
 import com.ganwei.datapush.tcp.service.impl.PointDataServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/6/15 11:34
  * @Desc
  */
+@Component
 public class DataPushClient {
 
     private final Logger logger = LoggerFactory.getLogger(DataPushClient.class);
@@ -33,15 +36,21 @@ public class DataPushClient {
 
     public static Report report = null;
 
+    @Autowired
+    private ConnectConfig connectConfig;
+
+    @Autowired
+    private ReportConfig reportConfig;
+
     public void start(){
         while(true) {
-            ConnectConfig connectConfig = new ConnectConfig();
-            connectConfig.setIp("218.17.122.52");
-            connectConfig.setPort(32886);
-
-            ReportConfig reportConfig = new ReportConfig();
-            reportConfig.setBuildingNo("GW123");
-            reportConfig.setCollectorNo("GW001");
+//            ConnectConfig connectConfig = new ConnectConfig();
+//            connectConfig.setIp("218.17.122.52");
+//            connectConfig.setPort(32886);
+//
+//            ReportConfig reportConfig = new ReportConfig();
+//            reportConfig.setBuildingNo("GW123");
+//            reportConfig.setCollectorNo("GW001");
 
             Connector connector = ConnectorFactory.getTCPConnector(connectConfig);
             Operator dataOperator = DataOperatorBuilder.getDataOperator(connector);
@@ -49,7 +58,7 @@ public class DataPushClient {
             // 相应处理器
             ResponseResoleverHandler handler = new ResponseResoleverHandler(FIXED_THREDS);
             handler.register(ReportTypt.HEART_BEAT_TIME, new HeartBeatResponseResolver());  // 注册心跳响应处理
-            handler.register(ReportTypt.CONFIG_PERIOD, new ConfigResponseResolver()); // 注册配置响应处理
+            handler.register(ReportTypt.CONFIG_PERIOD, new ConfigResponseResolver(reportConfig)); // 注册配置响应处理
 
 
             businessManager = new BusinessManager(dataOperator, true, reportConfig, handler, new PointDataServiceImpl());
