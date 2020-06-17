@@ -14,3 +14,11 @@ logging:
 #logging:
 #  config:
 #    classpath: logback-spring.xml
+
+weijing:
+  conn:
+    ip:
+    port:
+  report:
+    buildingNo:
+    collectorNo:
