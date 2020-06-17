@@ -8,9 +8,10 @@ import com.ganwei.datapush.tcp.report.Report;
 import com.ganwei.datapush.tcp.report.ReportFactory;
 import com.ganwei.datapush.tcp.response.Response;
 import com.ganwei.datapush.tcp.response.ResponseResoleverHandler;
-import com.ganwei.datapush.tcp.util.LogUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,9 +31,11 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class BusinessManager {
 
+    private final Logger logger = LoggerFactory.getLogger(BusinessManager.class);
+    
     private Operator operator;
 
-    private volatile static int dataPeriod = 15; // 15分钟发送
+    public volatile static int dataPeriod = 15; // 15分钟发送
 
     private volatile boolean runnig = true;
 
@@ -61,13 +64,13 @@ public class BusinessManager {
                     } catch (IOException e) {
                         runnig = false;
                         runStatus.put("heartBeat",false);
-                        LogUtil.LOGGER.error("心跳线程异常：心跳线程报错关闭",e);
+                        logger.error("心跳线程异常：心跳线程报错关闭",e);
                     }
 
                     try {
                         TimeUnit.MINUTES.sleep(HEART_PERIOD);
                     } catch (InterruptedException e) {
-                        LogUtil.LOGGER.error("心跳线程睡眠被打断",e);
+                        logger.error("心跳线程睡眠被打断",e);
                     }
 
                 }
@@ -83,10 +86,10 @@ public class BusinessManager {
      */
     public boolean validate() {
         try {
-            LogUtil.LOGGER.info("》》》身份验证开始《《《");
+            logger.info("》》》身份验证开始《《《");
             // 采集器编号，建筑编号是否为空
             if (reportConfig.getBuildingNo() == null || reportConfig.getCollectorNo() == null) {
-                LogUtil.LOGGER.error("------>报文配置项为空（" + ReportConfig.class.getName() + "），身份无法验证<------");
+                logger.error("------>报文配置项为空（" + ReportConfig.class.getName() + "），身份无法验证<------");
                 return false;
             }
             // 身份验证：获取sequence
@@ -95,10 +98,10 @@ public class BusinessManager {
             Response receive = operator.receive();
             String sequence = receive.getContentByPath("/root/id_validate/sequence");
             if (Objects.isNull(sequence)) {
-                LogUtil.LOGGER.error("身份验证异常：返回sequence为空");
+                logger.error("身份验证异常：返回sequence为空");
                 return false;
             }
-            LogUtil.LOGGER.info("身份验证：sequence=" + sequence);
+            logger.info("身份验证：sequence=" + sequence);
 
             // MD5再次验证
             Report idValidateMD5Report = ReportFactory
@@ -107,14 +110,14 @@ public class BusinessManager {
             Response md5Receive = operator.receive();
             String result = md5Receive.getContentByPath("/root/id_validate/result");
             if ("pass".equals(result)) {
-                LogUtil.LOGGER.error("》》》身份验证通过《《《");
+                logger.info("》》》身份验证通过《《《");
                 return true;
             } else {
-                LogUtil.LOGGER.error("》》》身份验证失败：未通过《《《");
+                logger.error("》》》身份验证失败：未通过《《《");
                 return false;
             }
         } catch (IOException e) {
-            LogUtil.LOGGER.error("身份验证异常：流错误", e);
+            logger.error("身份验证异常：流错误", e);
         }
         return false;
     }
@@ -145,7 +148,7 @@ public class BusinessManager {
                     }
                     runnig = false;
                     runStatus.put("dataInterval",false);
-                    LogUtil.LOGGER.error("数据上传线程异常：数据上传线程报错关闭",e);
+                    logger.error("数据上传线程异常：数据上传线程报错关闭",e);
                 }
                 try {
 //                    TimeUnit.MINUTES.sleep(dataPeriod);
@@ -155,10 +158,10 @@ public class BusinessManager {
                 }
             }
             runStatus.put("dataInterval",false);
-            LogUtil.LOGGER.info("定时发送数据线程（Data Send Inteval）关闭");
+            logger.info("定时发送数据线程（Data Send Inteval）关闭");
         },"Data Send Inteval");
         dataSender.start();
-        LogUtil.LOGGER.info("定时发送数据线程（Data Send Inteval）启动");
+        logger.info("定时发送数据线程（Data Send Inteval）启动");
     }
 
     /**
@@ -172,7 +175,7 @@ public class BusinessManager {
                     handler.deal(receive);
                 } catch (IOException e) {
                     runnig = false;
-                    LogUtil.LOGGER.error("结果处理线程异常：结果处理线程报错关闭",e);
+                    logger.error("结果处理线程异常：结果处理线程报错关闭",e);
                 }
             }
         },"responseHandler");
@@ -188,7 +191,7 @@ public class BusinessManager {
             while(count<5){
                 if(true == runStatus.get(s)){
                     try {
-                        LogUtil.LOGGER.error("有线程未结束任务，等待5s......");
+                        logger.error("有线程未结束任务，等待5s......");
                         TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

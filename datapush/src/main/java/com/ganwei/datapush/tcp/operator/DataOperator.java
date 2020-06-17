@@ -5,8 +5,9 @@ import com.ganwei.datapush.tcp.connect.Connector;
 import com.ganwei.datapush.tcp.encrypt.Encryptor;
 import com.ganwei.datapush.tcp.response.Response;
 import com.ganwei.datapush.tcp.util.CRC16Util;
-import com.ganwei.datapush.tcp.util.LogUtil;
 import com.ganwei.datapush.tcp.util.ReportUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,6 +20,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class DataOperator implements Operator {
 
+    private final Logger logger = LoggerFactory.getLogger(DataOperator.class);
+    
     private static final int RETRY = 3;
 
     private int count = 1;
@@ -39,13 +42,13 @@ public class DataOperator implements Operator {
     public void send(String report) throws IOException {
         try {
             synchronized (this) {
-                LogUtil.LOGGER.info(">>>>>>>>>>发送报文<<<<<<<<<<<\n"+report);
+                logger.info(">>>>>>>>>>发送报文<<<<<<<<<<<\n"+report);
                 byte[] packg = packg(report, null);
                 connector.send(packg);
             }
         } catch (IOException e) {
 
-            LogUtil.LOGGER.error(">>>>>>>>>>报文发送失败,重试第"+count+"次<<<<<<<<<<<",e);
+            logger.error(">>>>>>>>>>报文发送失败,重试第"+count+"次<<<<<<<<<<<",e);
             if(count <= RETRY){
                 count++;
                 send(report);
@@ -61,7 +64,7 @@ public class DataOperator implements Operator {
      * @throws IOException
      */
     public Response receive() throws IOException {
-        LogUtil.LOGGER.info("等待接收报文");
+        logger.info("等待接收报文");
         byte[] bytes = new byte[4];
         byte[] crc = new byte[2];
         int count = 0; // 防止回写数据为无效数据，倒置CPU升高
@@ -80,7 +83,7 @@ public class DataOperator implements Operator {
                 connector.receive(crc);
                 connector.receive(bytes);
 
-                LogUtil.LOGGER.info(">>>>>>>>>>接收报文<<<<<<<<<<<\n"+response.getText());
+                logger.info(">>>>>>>>>>接收报文<<<<<<<<<<<\n"+response.getText());
                 return response;
             }
             count++;
@@ -91,7 +94,7 @@ public class DataOperator implements Operator {
                     e.printStackTrace();
                 }
                 if(count > 1060){ // 以500ms一次，空跑30s后返回null
-                    LogUtil.LOGGER.error("X》X》X》接收无效数据超过30s，接收停止，返回null《X《X《X");
+                    logger.error("X》X》X》接收无效数据超过30s，接收停止，返回null《X《X《X");
                     return null;
                 }
             }
@@ -103,16 +106,16 @@ public class DataOperator implements Operator {
      * 销毁
      */
     public boolean close(){
-        LogUtil.LOGGER.info(">>>>开始关闭>>>>>>>>>");
+        logger.info(">>>>开始关闭>>>>>>>>>");
         if (connector != null) {
             try {
                 connector.close();
             } catch (IOException e) {
-                LogUtil.LOGGER.error("关闭失败，请重启",e);
+                logger.error("关闭失败，请重启",e);
                 return false;
             }
         }
-        LogUtil.LOGGER.info(">>>>关闭完成>>>>>>>>>");
+        logger.info(">>>>关闭完成>>>>>>>>>");
         return true;
     }
 

@@ -1,7 +1,8 @@
 package com.ganwei.datapush.tcp.response;
 
 
-import com.ganwei.datapush.tcp.util.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,8 @@ import java.util.concurrent.Executors;
  * @Desc 归类返回报文，缓存，并处理
  */
 public class ResponseResoleverHandler {
+    private final Logger logger = LoggerFactory.getLogger(ResponseResoleverHandler.class);
+
     private Map<String,ResponseResolver> handlerMap = new ConcurrentHashMap<>();
 
     private ExecutorService executorService;
@@ -30,13 +33,13 @@ public class ResponseResoleverHandler {
 
     public void deal(Response response){
         executorService.submit(() -> {
-            LogUtil.LOGGER.info("获得处理结果线程");
+            logger.info("获得处理结果线程");
             String contentByPath = response.getContentByPath("/root/common/type");
             ResponseResolver responseResolver = handlerMap.get(contentByPath);
             if (responseResolver != null) {
                 responseResolver.dealWith(response);
             } else {
-                LogUtil.LOGGER.info("没有此报文的业务处理器");
+                logger.info("没有此报文的业务处理器");
             }
         });
     }
