@@ -84,4 +84,5 @@ class SpringbootSeniorApplicationTests {
     public void test6(){
         srt.opsForValue().set("string","string");
     }
+
 }

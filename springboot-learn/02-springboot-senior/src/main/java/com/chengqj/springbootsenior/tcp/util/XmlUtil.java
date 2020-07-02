@@ -31,4 +31,12 @@ public class XmlUtil {
         }
     }
 
+
+//    public static void main(String[] args) {
+//
+//        BigDecimal bigDecimal = new BigDecimal("2.6848435E+4");  //
+//
+//        System.out.println(bigDecimal.toPlainString());
+//    }
+
 }
