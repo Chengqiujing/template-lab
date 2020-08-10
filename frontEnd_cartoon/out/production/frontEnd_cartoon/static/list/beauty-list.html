@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery+CSS3价格表插件</title>
+
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.pricetable.min.js"></script>
+
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <link href="css/pricetable.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#priceTable1,#priceTable2,#priceTable3,#priceTable4,#priceTable5,#priceTable6').priceTable();
+        });
+    </script>
+
+
+    <style type="text/css" media="screen">
+        #wrapper{
+            width:960px;
+            margin:40px auto 100px auto;
+        }
+        .clear{clear:both;display:block;height:0;overflow:hidden;}
+    </style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <ul class="priceTable greyStyle" id="priceTable1">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+<div id="wrapper">
+
+    <ul class="priceTable blackStyle" id="priceTable2">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+<div id="wrapper">
+
+    <ul class="priceTable darkBlueStyle" id="priceTable3">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+<div id="wrapper">
+
+    <ul class="priceTable greenStyle" id="priceTable4">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+<div id="wrapper">
+
+    <ul class="priceTable pinkStyle" id="priceTable5">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+<div id="wrapper">
+
+    <ul class="priceTable lightBlueStyle" id="priceTable6">
+        <li class="priceItem">
+            <ul>
+                <li class="header">Basic</li>
+                <li>&lt;== Change style</li>
+                <li data-animate="tada"><span class="price">$12</span>/mo</li>
+                <li>&lt;== Change animation</li>
+                <li>Max size of file: 100M</li>
+                <li><span class="strong green">5 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Hello Button</a></li>
+            </ul>
+        </li>
+        <li class="priceItem active">
+            <ul class="badge">
+                <li class="header">Recommand</li>
+                <li data-animate="rotateIn">Pre defined animation</li>
+                <li><span class="price">$150</span>/year</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 500M</li>
+                <li><span class="strong blue">10 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header">More Power</li>
+                <li data-animate="lightSpeedIn">Pre defined Animation</li>
+                <li><span class="price">$30</span>/mo</li>
+                <li>Unlimited bandwidth</li>
+                <li>Max size of file: 1GB</li>
+                <li><span class="strong red">20 GB</span> Storage</li>
+                <li>24/7 Free Support</li>
+                <li class="button"><a href="#">Sign Up</a></li>
+            </ul>
+        </li>
+        <li class="priceItem">
+            <ul>
+                <li class="header" data-animate="bounceInDown">Prefessional</li>
+                <li data-animate="bounceInDown">Fixed Animation</li>
+                <li data-animate="bounceInDown"><span class="price">$40</span>/mo</li>
+                <li data-animate="bounceInDown">Unlimited bandwidth</li>
+                <li data-animate="bounceInDown">Max size of file: Unlimited</li>
+                <li data-animate="bounceInDown"><span class="strong pink">40 GB</span> Storage</li>
+                <li data-animate="bounceInDown">24/7 Free Support</li>
+                <li data-animate="bounceInDown" class="button"><a href="#">Long Button Here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="clear"></div>
+
+</div>
+
+</body>
+</html>

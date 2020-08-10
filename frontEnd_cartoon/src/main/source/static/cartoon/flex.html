@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex</title>
+
+    <style>
+        div {
+            box-sizing: border-box;
+        }
+        /*
+        咱们通过display:flex将.parent元素设置为了flex盒子，那么子元素将会按照justify-content设置的方式进行元素的排列
+
+        justify-content: flex-start 从头开始向左
+        */
+        .parent {
+            width: 600px;
+            height: 200px;
+            margin: 100px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 0px;
+            display: flex;
+            justify-content: flex-start
+        }
+
+        .parent div {
+            width: 20%;
+            border: 1px solid #ccc;
+            background: pink;
+        }
+        /*
+        justify-content: flex-end 从尾向左
+        */
+        .parent1 {
+            width: 600px;
+            height: 200px;
+            margin: 100px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 201px;
+            display: flex;
+            justify-content: flex-end
+        }
+
+        .parent1 div {
+            width: 20%;
+            border: 1px solid #ccc;
+            background: pink;
+        }
+        /*
+        justify-content: center 从尾向左
+        */
+        .parent2 {
+            width: 600px;
+            height: 200px;
+            margin: 100px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 402px;
+            display: flex;
+            justify-content: center
+        }
+
+        .parent2 div {
+            width: 20%;
+            border: 1px solid #ccc;
+            background: pink;
+        }
+        /*
+        justify-content: center 从尾向左
+        */
+        .parent3 {
+            width: 600px;
+            height: 200px;
+            margin: 100px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 603px;
+            display: flex;
+            justify-content: space-around
+        }
+
+        .parent3 div {
+            width: 20%;
+            border: 1px solid #ccc;
+            background: pink;
+        }
+        /*
+        justify-content: center 从尾向左
+        */
+        .parent4 {
+            width: 600px;
+            height: 200px;
+            margin: 100px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 804px;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .parent4 div {
+            width: 20%;
+            border: 1px solid #ccc;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div class="parent1">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div class="parent2">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div class="parent3">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div class="parent4">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation</title>
+    <style>
+
+        /* 使用@keyframes 来定义了一个复杂的动画，在css3中，新增了@keyframes可以来帮助我们添加动画 */
+        /* 动画的名字叫做moveAndChange */
+        @keyframes moveAndChange {
+               0% {
+                   left: 0px;
+                   top: 0px;
+               }
+               25% {
+                   left: 200px;
+                   top: 200px;
+                   background: green;
+                   border-radius: 0;
+               }
+               50% {
+                   left: 400px;
+                   top: 200px;
+                   background: blue;
+                   border-radius: 50%;
+               }
+               75% {
+                   left: 400px;
+                   top: 0px;
+                   background: #ccc;
+                   border-radius: 0;
+               }
+               100% {
+                   left: 0px;
+                   top: 0px;
+                   background: red;
+                   border-radius: 50%;
+               }
+           }
+        /*
+        通过@keyframes创建了一个动画，我们还需要通过特定的语法来使用这个动画。
+        就是下面这句代码了：
+        animation: moveAndChange 5s linear 0.5s infinite normal;
+        它是一个复合属性，设置了6个值，分别对应：
+        animation-name(设置动画的名称)：用来设置动画的名字，我们这里写的是moveAndChange ，也就是说我们就是要使用我们刚刚创建的动画。
+        animation-duration(设置整个动画的时间):以秒作为单位，我们这里写的是5s，表示整个动画的时间为5秒
+        animation-timing-function(设置播放动画的方式)：播放动画的方式，常用的有linear(匀速)，ease(先慢后快)，ease-in，ease-out，ease-in-out等，我们使用的是linear匀速播放动画。
+        animation-delay(设置动画的延迟):以秒作为单位，我们写的是0.5s，表示延迟0.5秒之后开始播放动画。
+        animation-iteration-count(设置动画播放的次数):播放动画的次数，我们这里写的是infinite ，表示动画将会被播放无限次，如果写数字，那么就会播放数字对应的次数。
+        animation-direction(设置是否反向播放动画)：我们写的是normal，表示正常播放动画，如果写的是
+        alternate则表示要反向播放动画，大家也可以自己试一试这个效果。
+        */
+        div {
+
+            margin: 200px;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background: red;
+            border-radius: 50%;
+            animation: moveAndChange 5s linear 0.5s infinite normal;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

@@ -90,7 +90,10 @@ public class Test {
 
 
         LocalDate now1 = LocalDate.now();
-        System.out.println(now1.getDayOfMonth());
-        System.out.println(now1.get(ChronoField.DAY_OF_MONTH));
+        System.out.println(now1.getDayOfMonth()); // 获取本天是多少号
+        System.out.println(now1.get(ChronoField.DAY_OF_MONTH)); // 等同于上边
+        System.out.println(now1.lengthOfMonth()); // 获取本月长度
+
+
     }
 }

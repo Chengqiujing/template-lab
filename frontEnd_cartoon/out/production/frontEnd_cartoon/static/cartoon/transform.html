@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform</title>
+
+    <style>
+        body {
+            background: pink;
+        }
+        /*平移*/
+        #one {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background: green;
+            left: 0px;
+            top: 0px;
+            transform: translate(300px, 300px);
+        }
+        /*旋转*/
+        /*
+        transform: rotate(45deg); //deg为单位，表示度数。
+        进行了45度的旋转之后，呈现出来的就是一个菱形的盒子了，旋转的正方向为顺时针，负方向为逆时针。
+        */
+        #two {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background: green;
+            left: 50px;
+            top: 50px;
+            transform: rotate(45deg);
+        }
+        /*缩放*/
+        /*
+        scale的第一个参数为0.5,表示横向缩小为0.5倍
+        scale的第二个参数为0.25，表示纵向缩小为0.25倍。
+        scale的参数如果为1，则表示不进行任何缩放，小于1就是做缩小，而大于1表示做放大。
+        */
+        #three {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background: green;
+            left: 300px;
+            top: 50px;
+            transform: scale(0.5,0.25);
+        }
+
+        /*小结：transform转换中其实还包含了skew(倾斜)，matrix(矩阵转换)，相对来说用到的不是特别多*/
+    </style>
+</head>
+<body>
+<div id="one"></div>
+<div id="two"></div>
+<div id="three"></div>
+</body>
+</html>
