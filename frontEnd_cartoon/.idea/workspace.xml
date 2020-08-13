@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dba2ea28-3026-4109-8d32-60f0cba9b7aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/Parent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/People.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/ConstructorAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/FieldAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/LocalVarAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/MethodAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/ParameterAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/ParentTypeAnno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/TypeAnno.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="dba2ea28-3026-4109-8d32-60f0cba9b7aa" name="Default Changelist" comment="测试注解方法">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontEnd_cartoon.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frontEnd_cartoon.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/frontEnd_cartoon/train/basic/MySuscriber.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/frontEnd_cartoon/train/basic/MySuscriber.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/frontEnd_cartoon/train/basic/SubmissionPublisherTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/frontEnd_cartoon/train/basic/SubmissionPublisherTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/train/basic/SubmissionPublisherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/train/basic/SubmissionPublisherTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/AnnotationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/AnnotationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/SignTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/SignTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/train/basic/annotationtest/anno/FieldAnnos.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,6 +84,9 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Me\workspace\gitHub\template-lab\frontEnd_cartoon" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="train.basic.annotationtest.anno" />
       <recent name="train.basic.annotationtest" />
@@ -257,8 +243,16 @@
       <workItem from="1589524230025" duration="5345000" />
       <workItem from="1596622451328" duration="220000" />
       <workItem from="1597021968016" duration="5455000" />
-      <workItem from="1597300863846" duration="8070000" />
+      <workItem from="1597300863846" duration="8581000" />
     </task>
+    <task id="LOCAL-00001" summary="测试注解方法">
+      <created>1597312004628</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1597312004628</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +268,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="测试注解方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试注解方法" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
