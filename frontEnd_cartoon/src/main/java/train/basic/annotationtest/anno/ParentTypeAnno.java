@@ -1,4 +1,4 @@
-package train.basic.annotationtest;
+package train.basic.annotationtest.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,13 +7,15 @@ import java.lang.annotation.Target;
 
 /**
  * @Author chengqj
- * @Date 2020/8/10 9:53
- * @Desc
+ * @Date 2020/8/10 9:14
+ * @Desc 构造器注解
  */
-@Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SignTests {
+@Target(ElementType.TYPE)
+//@Inherited
+public @interface ParentTypeAnno {
 
-    SignTest[] values();
+    String name() default "father";
 
+    int num() default 0;
 }
