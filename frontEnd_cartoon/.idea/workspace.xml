@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dba2ea28-3026-4109-8d32-60f0cba9b7aa" name="Default Changelist" comment="测试注解方法">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="dba2ea28-3026-4109-8d32-60f0cba9b7aa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/StreamTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -109,7 +109,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.AnnotationTest">
+  <component name="RunManager" selected="Application.StreamTest">
     <configuration name="AnnotationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="train.basic.annotationtest.AnnotationTest" />
       <module name="frontEnd_cartoon" />
@@ -123,12 +123,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReferenceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="train.question.ReferenceTest" />
+    <configuration name="CalendarQuestion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="train.question.CalendarQuestion" />
       <module name="frontEnd_cartoon" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="train.question.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StreamTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="train.basic.StreamTest" />
+      <module name="frontEnd_cartoon" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="train.basic.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -138,19 +151,6 @@
     </configuration>
     <configuration name="StringReplace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="train.question.StringReplace" />
-      <module name="frontEnd_cartoon" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="train.question.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StringSplit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="train.question.StringSplit" />
       <module name="frontEnd_cartoon" />
       <extension name="coverage">
         <pattern>
@@ -177,11 +177,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamTest" />
+        <item itemvalue="Application.CalendarQuestion" />
         <item itemvalue="Application.AnnotationTest" />
         <item itemvalue="Application.StringReplace" />
         <item itemvalue="Application.VolatileTest" />
-        <item itemvalue="Application.ReferenceTest" />
-        <item itemvalue="Application.StringSplit" />
       </list>
     </recent_temporary>
   </component>
@@ -243,7 +243,9 @@
       <workItem from="1589524230025" duration="5345000" />
       <workItem from="1596622451328" duration="220000" />
       <workItem from="1597021968016" duration="5455000" />
-      <workItem from="1597300863846" duration="8581000" />
+      <workItem from="1597300863846" duration="8696000" />
+      <workItem from="1597647729524" duration="1299000" />
+      <workItem from="1597887087209" duration="1063000" />
     </task>
     <task id="LOCAL-00001" summary="测试注解方法">
       <created>1597312004628</created>
@@ -252,7 +254,28 @@
       <option name="project" value="LOCAL" />
       <updated>1597312004628</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="测试注解方法">
+      <created>1597312329000</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1597312329000</updated>
+    </task>
+    <task id="LOCAL-00003" summary="测试注解方法">
+      <created>1597312412492</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1597312412492</updated>
+    </task>
+    <task id="LOCAL-00004" summary="测试Calendar方法">
+      <created>1597657920717</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1597657920717</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +286,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -271,7 +296,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="测试注解方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试注解方法" />
+    <MESSAGE value="测试Calendar方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试Calendar方法" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
