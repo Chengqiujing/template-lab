@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dba2ea28-3026-4109-8d32-60f0cba9b7aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/StreamTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/train/basic/InnerClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,12 +59,6 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-165" />
-    <option name="y" value="50" />
-    <option name="width" value="1940" />
-    <option name="height" value="1060" />
-  </component>
   <component name="ProjectId" id="1g27Vb69FiDXPPaJ7Wop1JeViBD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -109,7 +103,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StreamTest">
+  <component name="RunManager" selected="Application.InnerClass">
     <configuration name="AnnotationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="train.basic.annotationtest.AnnotationTest" />
       <module name="frontEnd_cartoon" />
@@ -129,6 +123,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="train.question.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InnerClass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="train.basic.InnerClass" />
+      <module name="frontEnd_cartoon" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="train.basic.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -162,26 +169,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VolatileTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="train.question.VolatileTest" />
-      <module name="frontEnd_cartoon" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="train.question.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.InnerClass" />
         <item itemvalue="Application.StreamTest" />
         <item itemvalue="Application.CalendarQuestion" />
         <item itemvalue="Application.AnnotationTest" />
         <item itemvalue="Application.StringReplace" />
-        <item itemvalue="Application.VolatileTest" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +239,8 @@
       <workItem from="1597021968016" duration="5455000" />
       <workItem from="1597300863846" duration="8696000" />
       <workItem from="1597647729524" duration="1299000" />
-      <workItem from="1597887087209" duration="1063000" />
+      <workItem from="1597887087209" duration="1746000" />
+      <workItem from="1597916169926" duration="1878000" />
     </task>
     <task id="LOCAL-00001" summary="测试注解方法">
       <created>1597312004628</created>
@@ -275,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597657920717</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="测试Stream方法">
+      <created>1597888232368</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1597888232368</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +299,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="测试注解方法" />
     <MESSAGE value="测试Calendar方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试Calendar方法" />
+    <MESSAGE value="测试Stream方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试Stream方法" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
