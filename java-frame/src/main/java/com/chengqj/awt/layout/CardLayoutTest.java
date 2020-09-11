@@ -2,7 +2,6 @@ package com.chengqj.awt.layout;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
 /**
  * @Author chengqj
@@ -12,7 +11,7 @@ import java.util.Locale;
  */
 public class CardLayoutTest {
     Frame f = new Frame("CardLayoutTest测试");
-    String[] name = {"第一张","第二张","第三张","第四张","第五张"};
+    String[] name = {"1","2","3","4","5"};
     Panel pl = new Panel();
     
     public void init(){
@@ -25,42 +24,43 @@ public class CardLayoutTest {
         Panel p = new Panel();
         ActionListener listener = e ->{
             switch (e.getActionCommand()){
-                case "上一张":
+                case "previous":
                     c.previous(pl);
                     break;
-                case "下一张":
+                case "next":
                     c.next(pl);
                     break;
-                case "第一张":
+                case "first":
+                    c.first(pl);
+                    break;
+                case "last":
                     c.last(pl);
                     break;
-                case "第三张":
-                    c.show(pl,"第三张");
+                case "3":
+                    c.show(pl,"3");
                     break;
             }
         };
         // 控制显示上一张的按钮
-        Button previous = new Button("上一张");
-        previous.setFont(Font.getFont("SimSun"));
+        Button previous = new Button("previous");
         previous.addActionListener(listener);
-        previous.setLocale(Locale.CHINESE);
         p.add(previous);
         // 控制显示下一张的按钮
-        Button next = new Button("下一张");
+        Button next = new Button("next");
         next.addActionListener(listener);
         p.add(next);
         // 控制显示第一张的按钮
-        Button first = new Button("下一张");
+        Button first = new Button("first");
         first.addActionListener(listener);
         p.add(first);
         // 控制显示最后一张的按钮
-        Button last = new Button("最后一张");
+        Button last = new Button("last");
         last.addActionListener(listener);
         p.add(last);
         // 控制显示第三张的按钮
-        Button thrid = new Button("第三张");
+        Button thrid = new Button("3");
         thrid.addActionListener(listener);
-        p.add(last);
+        p.add(thrid);
         f.add(pl);
         f.add(p,BorderLayout.SOUTH);
         f.pack();
