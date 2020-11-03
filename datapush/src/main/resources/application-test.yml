@@ -17,8 +17,8 @@ spring:
 
 weijing:
   conn:
-    ip: 218.17.122.52
-    port: 32886
+    ip: 
+    port: 
   report:
     buildingNo: GW123
     collectorNo: GW001
