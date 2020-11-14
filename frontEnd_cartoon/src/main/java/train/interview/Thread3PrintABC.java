@@ -23,83 +23,54 @@ public class Thread3PrintABC {
 
     private final static ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-    private static int count = 1;
-
     public static void main(String[] args) {
-        pringABC_Synchronize();
-        // pringABC_Lock();
+        // pringABC_Synchronize();
+        pringABC_Lock();
         // pringABC_Semaphore();
         // pringABC_AtomicInteger();
     }
 
     private static void pringABC_Synchronize() {
+        executorService.execute(new SynchronizeWork(0, "A"));
+        executorService.execute(new SynchronizeWork(1, "B"));
+        executorService.execute(new SynchronizeWork(2, "C"));
+        executorService.shutdown();
+    }
 
+    private static void LockMethod(Lock lock, Condition self, Condition next, int count) {
+        try {
+            lock.lock();
+            if (count % 3 != 1) {
+                self.await();
+            }
+            count++; // 如果线程走了就++
+            while (true) {
+                System.out.println('A');
+                next.signal();
+                self.await();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void pringABC_Lock() {
-        Lock lock = new ReentrantLock();
-        Condition aa = lock.newCondition();
-        Condition bb = lock.newCondition();
-        Condition cc = lock.newCondition();
+        LockWork a = new LockWork(0, "A");
+        Condition aCurrCondition = a.getCurrCondition();
+        LockWork b = new LockWork(1, "B");
+        Condition bCurrCondition = b.getCurrCondition();
+        LockWork c = new LockWork(2, "C");
+        Condition cCurrCondition = c.getCurrCondition();
 
-        // print A
-        executorService.submit(() -> {
-            System.out.println("threada in...");
-            try {
-                lock.lock();
-                if (count % 3 != 1) {
-                    cc.await();
-                }
-                count++; // 如果线程走了就++
-                while (true) {
-                    System.out.println('A');
-                    bb.signal();
-                    aa.await();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        a.setNextCondition(bCurrCondition);
+        b.setNextCondition(cCurrCondition);
+        c.setNextCondition(aCurrCondition);
 
-        // print B
-        executorService.submit(() -> {
-            System.out.println("threadb in...");
-            try {
-                lock.lock();
-                if (count % 3 != 2) {
-                    bb.await();
-                }
-                count++; // 如果线程走了就++
-                while (true) {
-                    System.out.println('B');
-                    cc.signal();
-                    bb.await();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        executorService.execute(a);
+        executorService.execute(b);
+        executorService.execute(c);
 
-        // print C
-        executorService.submit(() -> {
-            System.out.println("threadc in...");
-            try {
-                lock.lock();
-                if (count % 3 != 0) {
-                    cc.await();
-                }
-                count++; // 如果线程走了就++
-                while (true) {
-                    System.out.println('C');
-                    aa.signal();
-                    cc.await();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
 
-        executorService.shutdown();
     }
 
     private static void pringABC_Semaphore() {
@@ -110,4 +81,73 @@ public class Thread3PrintABC {
 
     }
 
+}
+
+class SynchronizeWork implements Runnable {
+    private final static Object lockObj = new Object();
+    private static int count = 0;
+    private int threadIndex;
+    private String letter;
+
+    public SynchronizeWork(int threadIndex, String letter) {
+        this.threadIndex = threadIndex;
+        this.letter = letter;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            synchronized (lockObj) {
+                if (count % 3 == threadIndex) {
+                    count++;
+                    System.out.println(letter);
+                    lockObj.notifyAll();
+                }
+                try {
+                    lockObj.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+class LockWork implements Runnable {
+    private final static Lock lock = new ReentrantLock();
+    private Condition currCondition = lock.newCondition();
+    private static int count = 0;
+    private Condition nextCondition;
+    private String leter;
+    private int thredIndex;
+
+    public LockWork(int thredIndex, String leter) {
+        this.leter = leter;
+        this.thredIndex = thredIndex;
+    }
+
+    public Condition getCurrCondition() {
+        return currCondition;
+    }
+
+    public void setNextCondition(Condition nextCondition) {
+        this.nextCondition = nextCondition;
+    }
+
+    @Override
+    public void run() {
+        lock.lock();
+        try {
+            for (int i = 0; i < 10; i++) {
+                if (count % 3 == thredIndex) {
+                    count++;
+                    System.out.println(leter);
+                    nextCondition.signal();
+                }
+                currCondition.await();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
