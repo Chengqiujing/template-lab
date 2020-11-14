@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.concurrent.Flow;
 import java.util.concurrent.SubmissionPublisher;
 
-
+/**
+ * 基于 JDK 11
+ */
 public class SubmissionPublisherTest {
     public static void main(String[] args) {
         //创建一个发布者
