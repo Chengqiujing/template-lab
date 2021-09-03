@@ -1,0 +1,95 @@
+
+plugins {
+    id 'war'
+}
+// ---- 配置统一信息 ----
+// 包括root项目
+allprojects {
+    apply plugin:"java" // 引入插件
+    sourceCompatibility = 1.8
+    // 统一配置公共属性，例如：group，version
+    group 'org.example'
+    version '1.0-SNAPSHOT'
+}
+// 子模块
+subprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+
+
+
+
+configurations.all {
+    resolutionStrategy {
+        // 修改gradle不自动处理版本冲突
+        failOnVersionConflict()
+        // 强制指定某个版本
+        force 'org.slf4j:slf4j-api:1.7.24'
+    }
+}
+
+//dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+//    compile (group: 'org.hibernate', name: 'hibernate-core',version: '3.6.3.Final') {
+//        exclude group: "org.slf4j" ,module: "slf4j-api"
+//    }
+//}
+
+//test {
+//    useJUnitPlatform()
+//}
+
+
+
+
+
+// ---------------------------- 学习 ----------------------------
+// 定义他上t1
+task t1 {
+    doFirst {
+        println 't1 do first'
+    }
+
+    println "hello t1"
+
+    doLast {
+        println 't1 do last'
+    }
+}
+
+gradle.afterProject {
+    println "配置阶段 afterProject"
+}
+project.beforeEvaluate {
+    println "配置阶段 beforeEvaluate"
+}
+gradle.projectsEvaluated{
+    println "配置阶段 projectsEvaluated"
+}
+project.afterEvaluate {
+    println "配置阶段 afterEvaluate"
+}
+// 读取任务图
+gradle.taskGraph.whenReady {
+    println "执行阶段 taskGraph.whenReady"
+}
+gradle.taskGraph.beforeTask {
+    println "执行阶段 taskGraph.beforeTask"
+}
+gradle.taskGraph.afterTask {
+    println "执行阶段 taskGraph.afterTask"
+}
+// 构建完成
+gradle.buildFinished {
+    println "执行阶段 buildFinished"
+}
+// ----------------- 依赖管理 -----------------
+
+

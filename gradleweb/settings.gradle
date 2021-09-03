@@ -1,0 +1,22 @@
+rootProject.name = 'gradleweb'
+
+// 项目构建之前的钩子方法
+gradle.settingsEvaluated {
+    println "初始化阶段 settingsEvaluated"
+}
+gradle.projectsLoaded {
+    println "初始化阶段 projectsLoaded"
+}
+
+gradle.beforeProject {
+    println "初始化阶段 beforeProject"
+}
+include 'core'
+include 'model'
+include 'web'
+include 'admin'
+include 'groovy'
+include 'gradleweb'
+include 'wer'
+include 'groovy'
+

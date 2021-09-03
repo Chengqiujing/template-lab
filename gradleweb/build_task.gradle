@@ -1,0 +1,90 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// ---------------------------- 学习 ----------------------------
+// 定义他上t1
+task t1 {
+    doFirst {
+        println 't1 do first'
+    }
+
+    println "hello t1"
+
+    doLast {
+        println 't1 do last'
+    }
+}
+
+// 另一种创建任务的方式
+//tasks.create()
+
+// doLast简写
+//task t3 << {
+//    println 't3'
+//}
+
+// 依赖1:依赖task1
+task t2 (dependsOn : 't1') {
+    // t2 执行前的操作
+    doFirst {
+        println 't2 do first'
+    }
+
+    println 'hello t2'
+
+    doLast {
+        println 't2 do last'
+    }
+}
+
+// 依赖2:内部依赖
+task t4 {
+    dependsOn 't1'
+    doLast {
+        // ...
+    }
+}
+// 依赖3:外部依赖
+task t5 {
+
+}
+t5.dependsOn 't1'
+
+// 动态任务(了解)
+4.times {
+    val ->
+        task "tk${val}" {
+            doLast {
+                println "The task is task${val}"
+            }
+        }
+}
+
+// 给任务自定义属性
+task t6 {
+    ext.myProperty = "The propety value"
+}
+
+
+
+

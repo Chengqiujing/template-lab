@@ -1,0 +1,47 @@
+// buildscript需要配置在所有的plugins配置之前,可用apply plugin引入插件
+apply plugin: "com.bmuschko.tomcat" // 如果使用的是这种引入的方式,则放在什么地方都可以
+apply plugin: "war" // 如果使用的是这种引入的方式,则放在什么地方都可以
+
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        jcenter()
+    }
+    dependencies {
+        classpath "com.bmuschko:gradle-tomcat-plugin:2.5"
+    }
+}
+
+//plugins {
+//    id 'war'
+//}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    compile project(":core")
+
+    // 配置依赖 Tomcat 版本
+    def tomcatVersion = '8.0.42'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-jasper:${tomcatVersion}"
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0' // 编译期需要
+}
+
+// 单一配置
+//tomcat.httpPort=80
+//tomcat.contextPath = '/'
+
+tomcat {
+    httpPort = 80
+    contextPath = '/'
+}
+
+test {
+    useJUnitPlatform()
+}
+
